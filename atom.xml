@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://Xing-Fax.GitHub.io</id>
+    <title>Xing-Fax🤪</title>
+    <updated>2023-01-04T08:03:57.363Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://Xing-Fax.GitHub.io"/>
+    <link rel="self" href="https://Xing-Fax.GitHub.io/atom.xml"/>
+    <subtitle>温故而知新，可以为师矣~</subtitle>
+    <logo>https://Xing-Fax.GitHub.io/images/avatar.png</logo>
+    <icon>https://Xing-Fax.GitHub.io/favicon.ico</icon>
+    <rights>All rights reserved 2023, Xing-Fax🤪</rights>
+    <entry>
+        <title type="html"><![CDATA[排序算法-地精排序]]></title>
+        <id>https://Xing-Fax.GitHub.io/post/goblin-sort/</id>
+        <link href="https://Xing-Fax.GitHub.io/post/goblin-sort/">
+        </link>
+        <updated>2022-12-07T13:56:35.000Z</updated>
+        <summary type="html"><![CDATA[<h2 id="什么是地精排序">什么是地精排序？</h2>
+<p>📝地精排序(Gnome)，也称侏儒排序</p>
+]]></summary>
+        <content type="html"><![CDATA[<h2 id="什么是地精排序">什么是地精排序？</h2>
+<p>📝地精排序(Gnome)，也称侏儒排序</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[JAVA 练习题]]></title>
+        <id>https://Xing-Fax.GitHub.io/post/practise/</id>
+        <link href="https://Xing-Fax.GitHub.io/post/practise/">
+        </link>
+        <updated>2022-12-05T16:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>随手写的课后练习题😋</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>随手写的课后练习题😋</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[排序算法-冒泡排序]]></title>
+        <id>https://Xing-Fax.GitHub.io/post/bubble-sort/</id>
+        <link href="https://Xing-Fax.GitHub.io/post/bubble-sort/">
+        </link>
+        <updated>2022-11-18T05:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<h2 id="前言什么是冒泡排序">前言：什么是冒泡排序？</h2>
+<p>📝冒泡排序(Bubble Sort)，是一种计算机科学领域的较简单的排序算法</p>
+]]></summary>
+        <content type="html"><![CDATA[<h2 id="前言什么是冒泡排序">前言：什么是冒泡排序？</h2>
+<p>📝冒泡排序(Bubble Sort)，是一种计算机科学领域的较简单的排序算法</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[JAVA 国王遗产问题]]></title>
+        <id>https://Xing-Fax.GitHub.io/post/java-heritage/</id>
+        <link href="https://Xing-Fax.GitHub.io/post/java-heritage/">
+        </link>
+        <updated>2022-11-10T16:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>📝X国是一个小国，国王K有6个儿子</p>
+<p>😇在临终前立下遗嘱：</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>📝X国是一个小国，国王K有6个儿子</p>
+<p>😇在临终前立下遗嘱：</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[JAVA 百马百担]]></title>
+        <id>https://Xing-Fax.GitHub.io/post/java-horses/</id>
+        <link href="https://Xing-Fax.GitHub.io/post/java-horses/">
+        </link>
+        <updated>2022-11-10T16:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>📝现有100匹马，需要驮100担货</p>
+<p>其中大马能驮3担，中马能驮2担，两批小马能驮1担</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>📝现有100匹马，需要驮100担货</p>
+<p>其中大马能驮3担，中马能驮2担，两批小马能驮1担</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[APT 攻击综述及研究]]></title>
+        <id>https://Xing-Fax.GitHub.io/post/apt-attack-overview/</id>
+        <link href="https://Xing-Fax.GitHub.io/post/apt-attack-overview/">
+        </link>
+        <updated>2022-11-03T16:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<h1 id="apt攻击综述及研究">APT攻击综述及研究</h1>
+<h4 id="1什么是apt攻击">1.什么是APT攻击？</h4>
+]]></summary>
+        <content type="html"><![CDATA[<h1 id="apt攻击综述及研究">APT攻击综述及研究</h1>
+<h4 id="1什么是apt攻击">1.什么是APT攻击？</h4>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[JAVA 求回文数]]></title>
+        <id>https://Xing-Fax.GitHub.io/post/java-palindromes/</id>
+        <link href="https://Xing-Fax.GitHub.io/post/java-palindromes/">
+        </link>
+        <updated>2022-10-29T16:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>📝求1 - 1000之间的回文数，并且依次输出</p>
+<p>回文数即一个数的逆序和正序完全相同，如12321 逆序后是12321，仍然是原来的数</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>📝求1 - 1000之间的回文数，并且依次输出</p>
+<p>回文数即一个数的逆序和正序完全相同，如12321 逆序后是12321，仍然是原来的数</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[JAVA 折扣问题]]></title>
+        <id>https://Xing-Fax.GitHub.io/post/java-discount/</id>
+        <link href="https://Xing-Fax.GitHub.io/post/java-discount/">
+        </link>
+        <updated>2022-10-17T16:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>📝用户输入VIP等级计算商品折扣价格</p>
+<p>VIP等级：VIP-1级打9折，VIP-2级打8折，VIP-3级打7折，其他等级不打折🙃</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>📝用户输入VIP等级计算商品折扣价格</p>
+<p>VIP等级：VIP-1级打9折，VIP-2级打8折，VIP-3级打7折，其他等级不打折🙃</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[JAVA 位号求排数]]></title>
+        <id>https://Xing-Fax.GitHub.io/post/java-seat/</id>
+        <link href="https://Xing-Fax.GitHub.io/post/java-seat/">
+        </link>
+        <updated>2022-10-17T16:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>📝现有一间教室，座位为每八个一排</p>
+<p>现有学生48人，学生采取抽签的形式选座位(签数范围1-48)</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>📝现有一间教室，座位为每八个一排</p>
+<p>现有学生48人，学生采取抽签的形式选座位(签数范围1-48)</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[2.7.6 实施基本连接]]></title>
+        <id>https://Xing-Fax.GitHub.io/post/cisco-basic-connect/</id>
+        <link href="https://Xing-Fax.GitHub.io/post/cisco-basic-connect/">
+        </link>
+        <updated>2022-09-27T16:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>Packet Tracer - 配置初始交换机设置 <a href="https://xing-fax.github.io/file/2.7.6-Packet-Tracer-Implement-Basic-Connectivity.pka">教学文件下载 2.7.6</a></p>
+<p>📌<strong>地址分配表</strong>：</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Packet Tracer - 配置初始交换机设置 <a href="https://xing-fax.github.io/file/2.7.6-Packet-Tracer-Implement-Basic-Connectivity.pka">教学文件下载 2.7.6</a></p>
+<p>📌<strong>地址分配表</strong>：</p>
+]]></content>
+    </entry>
+</feed>

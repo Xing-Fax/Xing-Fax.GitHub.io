@@ -1,0 +1,347 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>2.5.5 配置初始交换机设置 | Xing-Fax🤪</title>
+
+<link rel="shortcut icon" href="https://Xing-Fax.GitHub.io/favicon.ico?v=1672819432514">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Xing-Fax.GitHub.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Xing-Fax🤪
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1672819432514" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    2.5.5 配置初始交换机设置
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-09-21 ·
+                    </time>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/U_0vcSHC4/" class="post-tags">
+                            # Cisco
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>Packet Tracer - 配置初始交换机设置 <a href="https://xing-fax.github.io/file/2.5.5-Packet-Tracer-Configure-Initial-Switch-Settings.pka">教学文件下载 2.5.5</a></p>
+<p>📌<strong>目标：</strong></p>
+<!-- more --> 
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-9565820"><label class="task-list-item-label" for="task-item-9565820"> 第一部分：验证默认交换机配置</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-9180708"><label class="task-list-item-label" for="task-item-9180708"> 第二部分：创建基本交换机配置</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-7038911"><label class="task-list-item-label" for="task-item-7038911"> 第三部分：配置MOTD标语</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-3958238"><label class="task-list-item-label" for="task-item-3958238"> 第四部分：保存和验证配置文件到NVRAM</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-2998363"><label class="task-list-item-label" for="task-item-2998363"> 第五部分：配置S2</label></li>
+</ul>
+<h2 id="第一部分验证默认交换机配置">第一部分：验证默认交换机配置</h2>
+<p><strong>步骤一：进入特权 EXEC 模式</strong></p>
+<p>在特权 EXEC 模式下，您可以使用全部交换机命令。不过由于一些特权命令会直接操作交换机系统参数，因此要使用密码对特权的访问加以保护，防止未授权的使用🤨</p>
+<p>特权 EXEC 模式能执行所有用户模式中的命令，并在此基础上增加了许多额外的命令</p>
+<ol>
+<li>单击S1，进入CLI选项卡后轻击 <kbd><strong>Enter</strong></kbd> 键 ，键入 <strong>Enable</strong>  后轻击 <kbd><strong>Enter</strong></kbd> 键</li>
+</ol>
+<pre><code>Switch&gt; Enable
+Switch#
+</code></pre>
+<blockquote>
+<p>📌注：特权模式下命令前缀会由&gt;变为#</p>
+</blockquote>
+<p><strong>步骤二：检查当前交换机配置</strong></p>
+<ol>
+<li>键入 <strong>Show Running-Config</strong>  后轻击 <kbd>Enter</kbd> 键</li>
+</ol>
+<pre><code>Switch# Show Running-Config
+</code></pre>
+<blockquote>
+<p>此命令会显示交换机基本配置信息入接口数量、类型等等...</p>
+<p>轻击 <kbd><strong>Blank</strong></kbd> 键进入下一页，<kbd><strong>Enter</strong></kbd> 键进入下一行</p>
+</blockquote>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-1932228"><label class="task-list-item-label" for="task-item-1932228"> 检验默认交换机配置🎉</label></li>
+</ul>
+<h2 id="第二部分创建基本交换机配置">第二部分：创建基本交换机配置</h2>
+<p><strong>步骤一：为交换机配置新名称</strong></p>
+<ol>
+<li>在进入特权模式后键入<strong>Configure Terminal</strong>后轻击 <kbd><strong>Enter</strong></kbd> 键进入全局配置模式</li>
+<li>输入<strong>HostName [Name]</strong>，Name为你想要设置的新名称😮</li>
+</ol>
+<pre><code>Switch# Configure Terminal
+Switch(config)# HostName S1
+S1(config)#
+</code></pre>
+<blockquote>
+<p>📌注：命令输入对大小写无要求</p>
+</blockquote>
+<p><strong>步骤二：对控制台进行密码保护</strong></p>
+<p>先进入全局配置模式，在进入<strong>Line</strong>模式，并对控制台进行密码设置为<strong>letmein</strong><br>
+Line Console 0 其中的0代表其编号为0，通常利用该端口进行本地登录 并配置信息😋</p>
+<pre><code>S1(config)# Line Console 0
+S1(config-line)# Password letmein
+S1(config-line)# Login
+S1(config-line)# Exit
+S1(config)#
+</code></pre>
+<blockquote>
+<p>如果想要你设置的密码生效应键入<strong>Login</strong>命令</p>
+<p>通过执行<strong>Exit</strong>命令可以返回到上一级，入在Line模式则返回到全局配置模式</p>
+</blockquote>
+<p><strong>步骤三：检验密码是否生效</strong></p>
+<ol>
+<li>通过键入 <kbd><strong>Enter</strong></kbd>+<kbd><strong>Z</strong></kbd> 可在任意模式下退出到特权模式，</li>
+<li>在特权模式下键入<strong>Exit</strong>退出，然后轻击 <kbd><strong>Enter</strong></kbd> 键</li>
+<li>此时键入密码<strong>letmein</strong>后轻击 <kbd><strong>Enter</strong></kbd> 键后进入控制台</li>
+</ol>
+<pre><code>S1# Exit
+S1 con0 is now available
+Press RETURN to get started.
+
+User Access Verification
+Password: 
+S1&gt;
+</code></pre>
+<blockquote>
+<p>如果没有要求输入密码请检查上一步骤是否正确输入🤔</p>
+<p>📌注：为安全起见，在键入密码时控制台不会显示密码，输入完毕后轻击 <kbd><strong>Enter</strong></kbd>即可</p>
+</blockquote>
+<p><strong>步骤四：为特权模式设置密码</strong></p>
+<p>用户模式下只能执行一些基本的命令且无法对交换机系统设置进行更改，特权模式拥有完全的控制权限，如果误操作后可能交换机无法正常的运行，因此要对特权模式配置密码</p>
+<ol>
+<li>进入全局配置模式，键入以下命令</li>
+</ol>
+<pre><code>S1(config)# Enable Password Cisco
+</code></pre>
+<p>此时特权模式密码已被设置😀</p>
+<p><strong>步骤五：验证特权模式密码是否生效</strong></p>
+<ol>
+<li>重复执行本节的<strong>步骤三</strong></li>
+<li>输入<strong>Enable</strong>命令后轻击 <kbd><strong>Enter</strong></kbd> 键后出现输入密码界面</li>
+</ol>
+<pre><code>S1&gt; En
+Password: 
+</code></pre>
+<ol start="4">
+<li>输入设置的密码<strong>Cisco</strong>后轻击 <kbd><strong>Enter</strong></kbd> 键，密码正确即可进入特权模式</li>
+</ol>
+<blockquote>
+<p>📌注：控制台密码和特权模式密码都是以明文形式存储，通过显示配置文件即可得到您的密码，会带来额外的安全风险😟</p>
+</blockquote>
+<p><strong>步骤六：配置加密密码以保护特权模式</strong></p>
+<p>应该使用 Enable Secret 命令代替 Enable Password 命令</p>
+<ol>
+<li>进入全局配置模式，键入以下命令</li>
+</ol>
+<pre><code>S1(config)# Enable Secret Itsasecret
+</code></pre>
+<ol start="2">
+<li>此时本节步骤四配置的密码即失效，新的特权模式密码被配置为<strong>Itsasecret</strong></li>
+</ol>
+<p><strong>步骤七：加密Enable和控制台密码</strong></p>
+<p>通过键入<strong>Show Running-Config</strong>命令后可以查看到特权模式和控制台明文密码，为了保障安全，需要对此明文进行加密📝</p>
+<ol>
+<li>进入全局配置模式下，键入以下命令</li>
+</ol>
+<pre><code>S1(config)# Service Password-Encryption
+</code></pre>
+<p>现在再次执行<strong>Show Running-Config</strong>命令，密码即被加密后显示</p>
+<blockquote>
+<p>Blowfish加密是CAT版本交换机的blowfish加密算法，在Cisco的交换机里面，开头字母是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span> , IOS版本的是MD5的加密</p>
+</blockquote>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-2015006"><label class="task-list-item-label" for="task-item-2015006"> 创建基本交换机配置🎉</label></li>
+</ul>
+<h2 id="第三部分配置motd标语">第三部分：配置MOTD标语</h2>
+<p>思科 IOS 命令集中包含一项功能， 可以在任何人登录交换机时，向其显示一些消息，这些消息称为登录标语，您应该把标语文本括在引号中，也可以使用其他定界符，但定界符不能与 MOTD 字符串中出现的任何字符相同了😊</p>
+<p><strong>步骤一：配置登录标语(NOTD)</strong></p>
+<ol>
+<li>进入全局配置模式，键入如下命令</li>
+</ol>
+<pre><code>S1(config)# Banner Motd &quot;Login Banner&quot;
+</code></pre>
+<p>此时登录标语即被设置为<strong>Login Banner</strong>在你首次登录交换机时会显示此标语</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-1434054"><label class="task-list-item-label" for="task-item-1434054"> 配置MOTD标语 🎉</label></li>
+</ul>
+<h2 id="第四部分保存和验证配置文件到nvram">第四部分：保存和验证配置文件到NVRAM</h2>
+<p>到此您已完成交换机的基本配置，现在需要将运行中的配置文件备份到NVRAM，确保不会因为系统意外断电导致配置丢失，在特权模式下键入以下命令</p>
+<pre><code>S1# Copy Running-Config Startup-Config
+</code></pre>
+<p>此时会提示您是否覆盖目标文件，轻击 <kbd><strong>Enter</strong></kbd> 键即可完成执行</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-6725529"><label class="task-list-item-label" for="task-item-6725529"> 保存和验证配置文件到NVRAM🎉</label></li>
+</ul>
+<h2 id="第五部分配置s2">第五部分：配置S2</h2>
+<p>您已经完成S1的基本配置，现在请重复配置S2，如果您不记得命令，可以通过翻阅一至四部分获取帮助😀</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-6881150"><label class="task-list-item-label" for="task-item-6881150"> 第 5 部分：配置 S2🎉</label></li>
+</ul>
+
+                </div>
+            </article>
+        </div>
+
+        
+
+        
+
+        
+            
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+<script>
+    // md5.min.js
+    !function(n){
+        "use strict";
+        function d(n,t){var r=(65535&n)+(65535&t);return(n>>16)+(t>>16)+(r>>16)<<16|65535&r}
+        function f(n,t,r,e,o,u){return d((c=d(d(t,n),d(e,u)))<<(f=o)|c>>>32-f,r);var c,f}
+        function l(n,t,r,e,o,u,c){return f(t&r|~t&e,n,t,o,u,c)}
+        function v(n,t,r,e,o,u,c){return f(t&e|r&~e,n,t,o,u,c)}
+        function g(n,t,r,e,o,u,c){return f(t^r^e,n,t,o,u,c)}
+        function m(n,t,r,e,o,u,c){return f(r^(t|~e),n,t,o,u,c)}
+        function i(n,t){var r,e,o,u,c;n[t>>5]|=128<<t%32,n[14+(t+64>>>9<<4)]=t;var f=1732584193,i=-271733879,a=-1732584194,h=271733878;for(r=0;r<n.length;r+=16)f=l(e=f,o=i,u=a,c=h,n[r],7,-680876936),h=l(h,f,i,a,n[r+1],12,-389564586),a=l(a,h,f,i,n[r+2],17,606105819),i=l(i,a,h,f,n[r+3],22,-1044525330),f=l(f,i,a,h,n[r+4],7,-176418897),h=l(h,f,i,a,n[r+5],12,1200080426),a=l(a,h,f,i,n[r+6],17,-1473231341),i=l(i,a,h,f,n[r+7],22,-45705983),f=l(f,i,a,h,n[r+8],7,1770035416),h=l(h,f,i,a,n[r+9],12,-1958414417),a=l(a,h,f,i,n[r+10],17,-42063),i=l(i,a,h,f,n[r+11],22,-1990404162),f=l(f,i,a,h,n[r+12],7,1804603682),h=l(h,f,i,a,n[r+13],12,-40341101),a=l(a,h,f,i,n[r+14],17,-1502002290),f=v(f,i=l(i,a,h,f,n[r+15],22,1236535329),a,h,n[r+1],5,-165796510),h=v(h,f,i,a,n[r+6],9,-1069501632),a=v(a,h,f,i,n[r+11],14,643717713),i=v(i,a,h,f,n[r],20,-373897302),f=v(f,i,a,h,n[r+5],5,-701558691),h=v(h,f,i,a,n[r+10],9,38016083),a=v(a,h,f,i,n[r+15],14,-660478335),i=v(i,a,h,f,n[r+4],20,-405537848),f=v(f,i,a,h,n[r+9],5,568446438),h=v(h,f,i,a,n[r+14],9,-1019803690),a=v(a,h,f,i,n[r+3],14,-187363961),i=v(i,a,h,f,n[r+8],20,1163531501),f=v(f,i,a,h,n[r+13],5,-1444681467),h=v(h,f,i,a,n[r+2],9,-51403784),a=v(a,h,f,i,n[r+7],14,1735328473),f=g(f,i=v(i,a,h,f,n[r+12],20,-1926607734),a,h,n[r+5],4,-378558),h=g(h,f,i,a,n[r+8],11,-2022574463),a=g(a,h,f,i,n[r+11],16,1839030562),i=g(i,a,h,f,n[r+14],23,-35309556),f=g(f,i,a,h,n[r+1],4,-1530992060),h=g(h,f,i,a,n[r+4],11,1272893353),a=g(a,h,f,i,n[r+7],16,-155497632),i=g(i,a,h,f,n[r+10],23,-1094730640),f=g(f,i,a,h,n[r+13],4,681279174),h=g(h,f,i,a,n[r],11,-358537222),a=g(a,h,f,i,n[r+3],16,-722521979),i=g(i,a,h,f,n[r+6],23,76029189),f=g(f,i,a,h,n[r+9],4,-640364487),h=g(h,f,i,a,n[r+12],11,-421815835),a=g(a,h,f,i,n[r+15],16,530742520),f=m(f,i=g(i,a,h,f,n[r+2],23,-995338651),a,h,n[r],6,-198630844),h=m(h,f,i,a,n[r+7],10,1126891415),a=m(a,h,f,i,n[r+14],15,-1416354905),i=m(i,a,h,f,n[r+5],21,-57434055),f=m(f,i,a,h,n[r+12],6,1700485571),h=m(h,f,i,a,n[r+3],10,-1894986606),a=m(a,h,f,i,n[r+10],15,-1051523),i=m(i,a,h,f,n[r+1],21,-2054922799),f=m(f,i,a,h,n[r+8],6,1873313359),h=m(h,f,i,a,n[r+15],10,-30611744),a=m(a,h,f,i,n[r+6],15,-1560198380),i=m(i,a,h,f,n[r+13],21,1309151649),f=m(f,i,a,h,n[r+4],6,-145523070),h=m(h,f,i,a,n[r+11],10,-1120210379),a=m(a,h,f,i,n[r+2],15,718787259),i=m(i,a,h,f,n[r+9],21,-343485551),f=d(f,e),i=d(i,o),a=d(a,u),h=d(h,c);return[f,i,a,h]}
+        function a(n){var t,r="",e=32*n.length;for(t=0;t<e;t+=8)r+=String.fromCharCode(n[t>>5]>>>t%32&255);return r}
+        function h(n){var t,r=[];for(r[(n.length>>2)-1]=void 0,t=0;t<r.length;t+=1)r[t]=0;var e=8*n.length;for(t=0;t<e;t+=8)r[t>>5]|=(255&n.charCodeAt(t/8))<<t%32;return r}
+        function e(n){var t,r,e="0123456789abcdef",o="";for(r=0;r<n.length;r+=1)t=n.charCodeAt(r),o+=e.charAt(t>>>4&15)+e.charAt(15&t);return o}
+        function r(n){return unescape(encodeURIComponent(n))}
+        function o(n){return a(i(h(t=r(n)),8*t.length));var t}
+        function u(n,t){return function(n,t){var r,e,o=h(n),u=[],c=[];for(u[15]=c[15]=void 0,16<o.length&&(o=i(o,8*n.length)),r=0;r<16;r+=1)u[r]=909522486^o[r],c[r]=1549556828^o[r];return e=i(u.concat(h(t)),512+8*t.length),a(i(c.concat(e),640))}(r(n),r(t))}
+        function t(n,t,r){return t?r?u(t,n):e(u(t,n)):r?o(n):e(o(n))}
+        "function"==typeof define&&define.amd?define(function(){return t}):"object"==typeof module&&module.exports?module.exports=t:n.md5=t;
+    }(this);
+</script>
+
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: 'cc7244edc84577bca7ac',
+    clientSecret: 'd1eb7fd1168bbe97cb978ee9afe1b3a132a62193',
+    repo: 'xing-fax.github.io',
+    owner: 'Xing-Fax',
+    admin: ['Xing-Fax'],
+    id: md5(location.pathname),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false       // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+            
+
+            
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新，可以为师矣~</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Website BY <a href="https://github.com/Xing-Fax/" target="_blank">Xing-Fax</a> Powered BY <a
+                href="https://github.com/Xing-Fax/xing-fax.github.io/" target="_blank">GitHub | <a href="https://xing-fax.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>
