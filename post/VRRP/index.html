@@ -1,0 +1,302 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>eNSP-虚拟路由冗余协议 | Xing-Fax</title>
+
+<link rel="shortcut icon" href="https://Xing-Fax.GitHub.io/favicon.ico?v=1699016659770">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Xing-Fax.GitHub.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Xing-Fax
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1699016659770" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    eNSP-虚拟路由冗余协议
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2023-05-07 ·
+                    </time>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/ensp/" class="post-tags">
+                            # eNSP
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h1 id="虚拟路由冗余协议vrrp">虚拟路由冗余协议VRRP</h1>
+<!-- more -->
+<p>是一种用于提高网络可靠性的容错协议。通过VRRP，可以在主机的下一跳设备出现故障时，及时将业务切换到备份设备，从而保障网络通信的连续性和可靠性。</p>
+<p><strong>网络拓扑：</strong></p>
+<figure data-type="image" tabindex="1"><img src="https://Xing-Fax.GitHub.io/post-images/1682075186400.png" alt="img" loading="lazy"></figure>
+<p><strong>VRRP 配置：</strong></p>
+<ol>
+<li>按照拓扑显示修改主机名，配置IP地址,AR3和AR1、AR2级联的链路，AR3的端口配置第一个可用IP地址</li>
+<li>AR1和AR3配置静态路由，AR2配置默认路由</li>
+<li>配置VRRP备份组１，AR１为Master设备，优先级200，AR2为Backup设备，优先级150，VRRP备份组1的虚拟IP地址为192.168.1.253</li>
+<li>配置VRRP备份组2：AR2为Master设备，优先级高于默认200，AR1为Backup设备，优先级150，VRRP备份组2的虚拟IP地址为192.168.1.254</li>
+<li>配置Master的抢占延时时间为10秒。</li>
+<li>Master配置VRRP的上行接口跟踪。如果DOWN,优先级降低60</li>
+</ol>
+<h2 id="配置过程">配置过程：</h2>
+<h3 id="1配置ip">1.配置IP</h3>
+<p><strong>AR1:</strong></p>
+<pre><code>int g0/0/0
+ip add 1.1.1.2 30
+int g0/0/1
+ip add 192.168.1.251 24
+</code></pre>
+<p><strong>AR2:</strong></p>
+<pre><code>int g0/0/0
+ip add 2.2.2.2 30
+int g0/0/1
+ip add 192.168.1.252 24
+</code></pre>
+<p><strong>AR3:</strong></p>
+<pre><code>int g0/0/0
+ip add 1.1.1.1 30
+int g0/0/1
+ip add 2.2.2.1 30
+int lo0
+ip add 3.3.3.3 24
+</code></pre>
+<h3 id="2配置路由">2.配置路由</h3>
+<p><strong>AR1:</strong></p>
+<pre><code>ip route-static 3.3.3.3 24 1.1.1.1
+</code></pre>
+<p><strong>AR3:</strong></p>
+<pre><code>ip route-static 192.168.1.0 24 1.1.1.2
+ip route-static 192.168.1.0 24 2.2.2.2
+</code></pre>
+<blockquote>
+<p>静态路由</p>
+</blockquote>
+<p><strong>AR2:</strong></p>
+<pre><code>ip route-static 0.0.0.0 0.0.0.0 2.2.2.1
+</code></pre>
+<blockquote>
+<p>默认路由</p>
+</blockquote>
+<h3 id="3启用ospf">3.启用OSPF</h3>
+<p><strong>AR1:</strong></p>
+<pre><code>ospf
+a 0
+net 1.1.1.0 0.0.0.3
+net 192.168.1.1 0.0.0.255
+</code></pre>
+<p><strong>AR2:</strong></p>
+<pre><code>ospf
+a 0
+net 2.2.2.0 0.0.0.3
+net 192.168.1.0 0.0.0.255
+</code></pre>
+<p><strong>AR3:</strong></p>
+<pre><code>ospf a 0
+net 1.1.1.0 0.0.0.3
+net 2.2.2.0 0.0.0.3
+net 3.3.3.0 0.0.0.255
+</code></pre>
+<h3 id="4创建vrrp">4.创建VRRP</h3>
+<p><strong>AR1:</strong></p>
+<pre><code>int g0/0/1
+vrrp vrid 1 virtual-ip 192.168.1.253
+vrrp vrid 1 priority 200
+vrrp vrid 1 track int g0/0/0 reduced 60
+
+vrrp vrid 2 virtual-ip 192.168.1.254
+vrrp vrid 2 priority 150
+
+vrrp vrid 1 preempt-mode timer delay 10
+</code></pre>
+<p><strong>AR2:</strong></p>
+<pre><code>int g0/0/1
+vrrp vrid 1 virtual-ip 192.168.1.253
+vrrp vrid 1 priority 150
+
+vrrp vrid 2 virtual-ip 192.168.1.254
+vrrp vrid 2 priority 210
+vrrp vrid 1 track int g0/0/0 reduced 60
+
+vrrp vrid 2 preempt-mode timer delay 10
+</code></pre>
+<h2 id="5验证配置">5.验证配置</h2>
+<p><strong>PC1:</strong></p>
+<pre><code>PC&gt;ping 3.3.3.3
+
+Ping 3.3.3.3: 32 data bytes, Press Ctrl_C to break
+Request timeout!
+From 3.3.3.3: bytes=32 seq=2 ttl=254 time=93 ms
+From 3.3.3.3: bytes=32 seq=3 ttl=254 time=79 ms
+From 3.3.3.3: bytes=32 seq=4 ttl=254 time=62 ms
+From 3.3.3.3: bytes=32 seq=5 ttl=254 time=62 ms
+
+--- 3.3.3.3 ping statistics ---
+  5 packet(s) transmitted
+  4 packet(s) received
+  20.00% packet loss
+  round-trip min/avg/max = 0/74/93 ms
+</code></pre>
+<p><strong>PC2:</strong></p>
+<pre><code>PC&gt;ping 3.3.3.3
+
+Ping 3.3.3.3: 32 data bytes, Press Ctrl_C to break
+Request timeout!
+From 3.3.3.3: bytes=32 seq=2 ttl=254 time=94 ms
+From 3.3.3.3: bytes=32 seq=3 ttl=254 time=78 ms
+From 3.3.3.3: bytes=32 seq=4 ttl=254 time=62 ms
+From 3.3.3.3: bytes=32 seq=5 ttl=254 time=63 ms
+
+--- 3.3.3.3 ping statistics ---
+  5 packet(s) transmitted
+  4 packet(s) received
+  20.00% packet loss
+  round-trip min/avg/max = 0/74/94 ms
+</code></pre>
+<p><strong>断开链路</strong></p>
+<figure data-type="image" tabindex="2"><img src="https://Xing-Fax.GitHub.io/post-images/1682078647287.png" alt="img" loading="lazy"></figure>
+<p><strong>PC1:</strong></p>
+<pre><code>PC&gt;ping 3.3.3.3
+
+Ping 3.3.3.3: 32 data bytes, Press Ctrl_C to break
+Request timeout!
+From 3.3.3.3: bytes=32 seq=2 ttl=254 time=78 ms
+From 3.3.3.3: bytes=32 seq=3 ttl=254 time=93 ms
+From 3.3.3.3: bytes=32 seq=4 ttl=254 time=79 ms
+From 3.3.3.3: bytes=32 seq=5 ttl=254 time=93 ms
+
+--- 3.3.3.3 ping statistics ---
+  5 packet(s) transmitted
+  4 packet(s) received
+  20.00% packet loss
+  round-trip min/avg/max = 0/85/93 ms
+</code></pre>
+<p>依然可以正常通信，散花~</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://Xing-Fax.GitHub.io/post/start/" class="post-title gt-a-link">
+                    eNSP-静态路由
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新，可以为师矣~</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Website BY <a href="https://github.com/Xing-Fax/" target="_blank">Xing-Fax</a> Powered BY <a
+                href="https://github.com/Xing-Fax/xing-fax.github.io/" target="_blank">GitHub | <a href="https://xing-fax.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

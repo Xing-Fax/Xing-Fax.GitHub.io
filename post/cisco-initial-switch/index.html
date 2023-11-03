@@ -1,0 +1,306 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>2.5.5 配置初始交换机设置 | Xing-Fax</title>
+
+<link rel="shortcut icon" href="https://Xing-Fax.GitHub.io/favicon.ico?v=1699016659770">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Xing-Fax.GitHub.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Xing-Fax
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1699016659770" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    2.5.5 配置初始交换机设置
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-09-21 ·
+                    </time>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/U_0vcSHC4/" class="post-tags">
+                            # Cisco
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>Packet Tracer - 配置初始交换机设置 <a href="https://xing-fax.github.io/file/2.5.5-Packet-Tracer-Configure-Initial-Switch-Settings.pka">教学文件下载 2.5.5</a></p>
+<p>📌<strong>目标：</strong></p>
+<!-- more --> 
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-994312"><label class="task-list-item-label" for="task-item-994312"> 第一部分：验证默认交换机配置</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-2356633"><label class="task-list-item-label" for="task-item-2356633"> 第二部分：创建基本交换机配置</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-946648"><label class="task-list-item-label" for="task-item-946648"> 第三部分：配置MOTD标语</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-1729393"><label class="task-list-item-label" for="task-item-1729393"> 第四部分：保存和验证配置文件到NVRAM</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-1915898"><label class="task-list-item-label" for="task-item-1915898"> 第五部分：配置S2</label></li>
+</ul>
+<h2 id="第一部分验证默认交换机配置">第一部分：验证默认交换机配置</h2>
+<p><strong>步骤一：进入特权 EXEC 模式</strong></p>
+<p>在特权 EXEC 模式下，您可以使用全部交换机命令。不过由于一些特权命令会直接操作交换机系统参数，因此要使用密码对特权的访问加以保护，防止未授权的使用🤨</p>
+<p>特权 EXEC 模式能执行所有用户模式中的命令，并在此基础上增加了许多额外的命令</p>
+<ol>
+<li>单击S1，进入CLI选项卡后轻击 <kbd><strong>Enter</strong></kbd> 键 ，键入 <strong>Enable</strong>  后轻击 <kbd><strong>Enter</strong></kbd> 键</li>
+</ol>
+<pre><code>Switch&gt; Enable
+Switch#
+</code></pre>
+<blockquote>
+<p>📌注：特权模式下命令前缀会由&gt;变为#</p>
+</blockquote>
+<p><strong>步骤二：检查当前交换机配置</strong></p>
+<ol>
+<li>键入 <strong>Show Running-Config</strong>  后轻击 <kbd>Enter</kbd> 键</li>
+</ol>
+<pre><code>Switch# Show Running-Config
+</code></pre>
+<blockquote>
+<p>此命令会显示交换机基本配置信息入接口数量、类型等等...</p>
+<p>轻击 <kbd><strong>Blank</strong></kbd> 键进入下一页，<kbd><strong>Enter</strong></kbd> 键进入下一行</p>
+</blockquote>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-6399918"><label class="task-list-item-label" for="task-item-6399918"> 检验默认交换机配置🎉</label></li>
+</ul>
+<h2 id="第二部分创建基本交换机配置">第二部分：创建基本交换机配置</h2>
+<p><strong>步骤一：为交换机配置新名称</strong></p>
+<ol>
+<li>在进入特权模式后键入<strong>Configure Terminal</strong>后轻击 <kbd><strong>Enter</strong></kbd> 键进入全局配置模式</li>
+<li>输入<strong>HostName [Name]</strong>，Name为你想要设置的新名称😮</li>
+</ol>
+<pre><code>Switch# Configure Terminal
+Switch(config)# HostName S1
+S1(config)#
+</code></pre>
+<blockquote>
+<p>📌注：命令输入对大小写无要求</p>
+</blockquote>
+<p><strong>步骤二：对控制台进行密码保护</strong></p>
+<p>先进入全局配置模式，在进入<strong>Line</strong>模式，并对控制台进行密码设置为<strong>letmein</strong><br>
+Line Console 0 其中的0代表其编号为0，通常利用该端口进行本地登录 并配置信息😋</p>
+<pre><code>S1(config)# Line Console 0
+S1(config-line)# Password letmein
+S1(config-line)# Login
+S1(config-line)# Exit
+S1(config)#
+</code></pre>
+<blockquote>
+<p>如果想要你设置的密码生效应键入<strong>Login</strong>命令</p>
+<p>通过执行<strong>Exit</strong>命令可以返回到上一级，入在Line模式则返回到全局配置模式</p>
+</blockquote>
+<p><strong>步骤三：检验密码是否生效</strong></p>
+<ol>
+<li>通过键入 <kbd><strong>Enter</strong></kbd>+<kbd><strong>Z</strong></kbd> 可在任意模式下退出到特权模式，</li>
+<li>在特权模式下键入<strong>Exit</strong>退出，然后轻击 <kbd><strong>Enter</strong></kbd> 键</li>
+<li>此时键入密码<strong>letmein</strong>后轻击 <kbd><strong>Enter</strong></kbd> 键后进入控制台</li>
+</ol>
+<pre><code>S1# Exit
+S1 con0 is now available
+Press RETURN to get started.
+
+User Access Verification
+Password: 
+S1&gt;
+</code></pre>
+<blockquote>
+<p>如果没有要求输入密码请检查上一步骤是否正确输入🤔</p>
+<p>📌注：为安全起见，在键入密码时控制台不会显示密码，输入完毕后轻击 <kbd><strong>Enter</strong></kbd>即可</p>
+</blockquote>
+<p><strong>步骤四：为特权模式设置密码</strong></p>
+<p>用户模式下只能执行一些基本的命令且无法对交换机系统设置进行更改，特权模式拥有完全的控制权限，如果误操作后可能交换机无法正常的运行，因此要对特权模式配置密码</p>
+<ol>
+<li>进入全局配置模式，键入以下命令</li>
+</ol>
+<pre><code>S1(config)# Enable Password Cisco
+</code></pre>
+<p>此时特权模式密码已被设置😀</p>
+<p><strong>步骤五：验证特权模式密码是否生效</strong></p>
+<ol>
+<li>重复执行本节的<strong>步骤三</strong></li>
+<li>输入<strong>Enable</strong>命令后轻击 <kbd><strong>Enter</strong></kbd> 键后出现输入密码界面</li>
+</ol>
+<pre><code>S1&gt; En
+Password: 
+</code></pre>
+<ol start="4">
+<li>输入设置的密码<strong>Cisco</strong>后轻击 <kbd><strong>Enter</strong></kbd> 键，密码正确即可进入特权模式</li>
+</ol>
+<blockquote>
+<p>📌注：控制台密码和特权模式密码都是以明文形式存储，通过显示配置文件即可得到您的密码，会带来额外的安全风险😟</p>
+</blockquote>
+<p><strong>步骤六：配置加密密码以保护特权模式</strong></p>
+<p>应该使用 Enable Secret 命令代替 Enable Password 命令</p>
+<ol>
+<li>进入全局配置模式，键入以下命令</li>
+</ol>
+<pre><code>S1(config)# Enable Secret Itsasecret
+</code></pre>
+<ol start="2">
+<li>此时本节步骤四配置的密码即失效，新的特权模式密码被配置为<strong>Itsasecret</strong></li>
+</ol>
+<p><strong>步骤七：加密Enable和控制台密码</strong></p>
+<p>通过键入<strong>Show Running-Config</strong>命令后可以查看到特权模式和控制台明文密码，为了保障安全，需要对此明文进行加密📝</p>
+<ol>
+<li>进入全局配置模式下，键入以下命令</li>
+</ol>
+<pre><code>S1(config)# Service Password-Encryption
+</code></pre>
+<p>现在再次执行<strong>Show Running-Config</strong>命令，密码即被加密后显示</p>
+<blockquote>
+<p>Blowfish加密是CAT版本交换机的blowfish加密算法，在Cisco的交换机里面，开头字母是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span> , IOS版本的是MD5的加密</p>
+</blockquote>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-5361648"><label class="task-list-item-label" for="task-item-5361648"> 创建基本交换机配置🎉</label></li>
+</ul>
+<h2 id="第三部分配置motd标语">第三部分：配置MOTD标语</h2>
+<p>思科 IOS 命令集中包含一项功能， 可以在任何人登录交换机时，向其显示一些消息，这些消息称为登录标语，您应该把标语文本括在引号中，也可以使用其他定界符，但定界符不能与 MOTD 字符串中出现的任何字符相同了😊</p>
+<p><strong>步骤一：配置登录标语(NOTD)</strong></p>
+<ol>
+<li>进入全局配置模式，键入如下命令</li>
+</ol>
+<pre><code>S1(config)# Banner Motd &quot;Login Banner&quot;
+</code></pre>
+<p>此时登录标语即被设置为<strong>Login Banner</strong>在你首次登录交换机时会显示此标语</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-9291002"><label class="task-list-item-label" for="task-item-9291002"> 配置MOTD标语 🎉</label></li>
+</ul>
+<h2 id="第四部分保存和验证配置文件到nvram">第四部分：保存和验证配置文件到NVRAM</h2>
+<p>到此您已完成交换机的基本配置，现在需要将运行中的配置文件备份到NVRAM，确保不会因为系统意外断电导致配置丢失，在特权模式下键入以下命令</p>
+<pre><code>S1# Copy Running-Config Startup-Config
+</code></pre>
+<p>此时会提示您是否覆盖目标文件，轻击 <kbd><strong>Enter</strong></kbd> 键即可完成执行</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-4862611"><label class="task-list-item-label" for="task-item-4862611"> 保存和验证配置文件到NVRAM🎉</label></li>
+</ul>
+<h2 id="第五部分配置s2">第五部分：配置S2</h2>
+<p>您已经完成S1的基本配置，现在请重复配置S2，如果您不记得命令，可以通过翻阅一至四部分获取帮助😀</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-6655254"><label class="task-list-item-label" for="task-item-6655254"> 第 5 部分：配置 S2🎉</label></li>
+</ul>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://Xing-Fax.GitHub.io/post/how-to-ask/" class="post-title gt-a-link">
+                    提问的智慧
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新，可以为师矣~</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Website BY <a href="https://github.com/Xing-Fax/" target="_blank">Xing-Fax</a> Powered BY <a
+                href="https://github.com/Xing-Fax/xing-fax.github.io/" target="_blank">GitHub | <a href="https://xing-fax.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

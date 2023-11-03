@@ -1,0 +1,391 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>选拔考试例题-eNSP | Xing-Fax</title>
+
+<link rel="shortcut icon" href="https://Xing-Fax.GitHub.io/favicon.ico?v=1699016659770">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Xing-Fax.GitHub.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Xing-Fax
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1699016659770" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    选拔考试例题-eNSP
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2023-09-16 ·
+                    </time>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/ensp/" class="post-tags">
+                            # eNSP
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h1 id="选拔考试例题-ensp">选拔考试例题-eNSP</h1>
+<!-- more -->
+<h3 id="网络拓扑">网络拓扑：</h3>
+<figure data-type="image" tabindex="1"><img src="https://Xing-Fax.GitHub.io/post-images/Snipaste_2023-09-16_17-33-36.png" alt="img" loading="lazy"></figure>
+<h3 id="要求说明">要求说明：</h3>
+<ol>
+<li>按拓扑配置主机名和IP地址</li>
+<li>总公司配置单臂路由使VLAN互通，子接口ID和VLAN ID一致，IP地址网络第一个可用地址，做相应的配置</li>
+<li>分公司配置三层交换使VLAN间互通，VLANIF 的IP地址网络第一个可用地址，三层交换机使用VLANIF 100和R2通信，做相应配置</li>
+<li>R1、R2和3LSW 配置OSPF路由协议使全网互通</li>
+<li>测试PC机之间的连通性</li>
+</ol>
+<h2 id="实验步骤">实验步骤</h2>
+<h3 id="基础配置">基础配置：</h3>
+<ol>
+<li>首先按照拓扑显示，为每台设备设置名称和IP</li>
+</ol>
+<p><strong>AR1：</strong></p>
+<pre><code>system-view
+sysname AR1
+</code></pre>
+<p><strong>AR2：</strong></p>
+<pre><code>system-view
+sysname AR2
+</code></pre>
+<p><strong>3LSW：</strong></p>
+<pre><code>system-view
+sysname 3LSW
+</code></pre>
+<p><strong>SW1：</strong></p>
+<pre><code>system-view
+sysname SW1
+</code></pre>
+<p><strong>SW2：</strong></p>
+<pre><code>system-view
+sysname SW2
+</code></pre>
+<ol start="2">
+<li>按照题意可得知，每个VLAN的网关为此网段的第一个可用IP</li>
+</ol>
+<p><strong>PC1：</strong></p>
+<pre><code>192.168.10.1
+</code></pre>
+<p><strong>PC2：</strong></p>
+<pre><code>192。168.20.1
+</code></pre>
+<p><strong>PC3：</strong></p>
+<pre><code>172.16.30.1
+</code></pre>
+<p><strong>PC4：</strong></p>
+<pre><code>172.16.40.1
+</code></pre>
+<h3 id="总公司-单臂路由">总公司-单臂路由：</h3>
+<p><strong>SW1：</strong></p>
+<pre><code>vlan batch 10 20
+
+int g0/0/11
+port link-type access
+port default vlan 10
+
+int g0/0/12
+port link-type access
+port default vlan 20
+
+int g0/0/1
+port link-type trunk
+port trunk allow-pass vlan all
+</code></pre>
+<p><strong>AR1：</strong></p>
+<pre><code>int g0/0/0.10
+ip add 192.168.10.1 24		//配置网关
+dot1q termination vid 10	//配置VLAN ID
+arp broadcast enable		//开启子接口
+
+int g0/0/0.20
+ip add 192.168.20.1 24
+dot1q termination vid 20
+arp broadcast enable
+</code></pre>
+<p><strong>测试：</strong></p>
+<pre><code>//PC1 PING PC2
+PC&gt;ping 192.168.20.2
+
+Ping 192.168.20.2: 32 data bytes, Press Ctrl_C to break
+From 192.168.20.2: bytes=32 seq=1 ttl=127 time=62 ms
+From 192.168.20.2: bytes=32 seq=2 ttl=127 time=78 ms
+From 192.168.20.2: bytes=32 seq=3 ttl=127 time=78 ms
+From 192.168.20.2: bytes=32 seq=4 ttl=127 time=63 ms
+From 192.168.20.2: bytes=32 seq=5 ttl=127 time=78 ms
+
+--- 192.168.20.2 ping statistics ---
+  5 packet(s) transmitted
+  5 packet(s) received
+  0.00% packet loss
+  round-trip min/avg/max = 62/71/78 ms
+</code></pre>
+<h3 id="分公司-三层vlan间互通">分公司-三层VLAN间互通：</h3>
+<p><strong>SW2：</strong></p>
+<pre><code>vlan batch 30 40
+
+int g0/0/3
+port link-type access
+port default vlan 30
+
+int g0/0/4
+port link-type access
+port default vlan 40
+
+int g0/0/1
+port link-type trunk
+port trunk allow-pass vlan all
+</code></pre>
+<p><strong>3LSW：</strong></p>
+<pre><code>vlan batch 30 40
+
+int g0/0/2
+port link-type trunk
+port trunk allow-pass vlan all
+
+int vlanif 30
+ip add 172.16.30.1 24
+
+int vlanif 40
+ip add 172.16.40.1 24
+</code></pre>
+<p><strong>测试：</strong></p>
+<pre><code>//PC3 PING PC4
+PC&gt;ping 172.16.40.1
+
+Ping 172.16.40.1: 32 data bytes, Press Ctrl_C to break
+From 172.16.40.1: bytes=32 seq=1 ttl=255 time=47 ms
+From 172.16.40.1: bytes=32 seq=2 ttl=255 time=47 ms
+From 172.16.40.1: bytes=32 seq=3 ttl=255 time=47 ms
+From 172.16.40.1: bytes=32 seq=4 ttl=255 time=31 ms
+From 172.16.40.1: bytes=32 seq=5 ttl=255 time=31 ms
+
+--- 172.16.40.1 ping statistics ---
+  5 packet(s) transmitted
+  5 packet(s) received
+  0.00% packet loss
+  round-trip min/avg/max = 31/40/47 ms
+</code></pre>
+<h3 id="ospf全网互通">OSPF全网互通：</h3>
+<p><strong>3LSW：</strong></p>
+<pre><code>vlan batch 100
+
+int vlanif 100
+ip add 2.2.2.2 30
+
+int g0/0/1
+port link-type access
+port default vlan 100
+</code></pre>
+<p><strong>AR2：</strong></p>
+<pre><code>int g0/0/0
+ip add 2.2.2.1 30
+</code></pre>
+<p><strong>测试：</strong></p>
+<pre><code>//3LSW PING AR2
+ping 2.2.2.1
+  PING 2.2.2.1: 56  data bytes, press CTRL_C to break
+    Reply from 2.2.2.1: bytes=56 Sequence=1 ttl=255 time=80 ms
+    Reply from 2.2.2.1: bytes=56 Sequence=2 ttl=255 time=50 ms
+    Reply from 2.2.2.1: bytes=56 Sequence=3 ttl=255 time=50 ms
+    Reply from 2.2.2.1: bytes=56 Sequence=4 ttl=255 time=40 ms
+    Reply from 2.2.2.1: bytes=56 Sequence=5 ttl=255 time=10 ms
+
+  --- 2.2.2.1 ping statistics ---
+    5 packet(s) transmitted
+    5 packet(s) received
+    0.00% packet loss
+    round-trip min/avg/max = 10/46/80 ms
+</code></pre>
+<blockquote>
+<p>以上两步是为了三层交换机与路由器进行通信，接下来进行OSPF配置，使全网互通</p>
+</blockquote>
+<p><strong>3LSW：</strong></p>
+<pre><code>ospf
+area 0
+net 172.16.30.0 0.0.0.255	//宣告网络
+net 172.16.40.0 0.0.0.255
+net 2.2.2.0 0.0.0.3
+</code></pre>
+<p><strong>AR2：</strong></p>
+<pre><code>int g0/0/1
+ip add 1.1.1.2 30
+
+ospf
+area 0
+net 1.1.1.0 0.0.0.3
+net 2.2.2.0 0.0.0.3
+</code></pre>
+<p><strong>AR3：</strong></p>
+<pre><code>int g0/0/1
+ip add 1.1.1.1 30
+
+ospf
+area 0
+net 1.1.1.0 0.0.0.3
+</code></pre>
+<p><strong>测试：</strong></p>
+<pre><code>//PC1 PING PC3
+PC&gt;ping 172.16.30.2
+
+Ping 172.16.30.2: 32 data bytes, Press Ctrl_C to break
+Request timeout!
+From 172.16.30.2: bytes=32 seq=2 ttl=125 time=109 ms
+From 172.16.30.2: bytes=32 seq=3 ttl=125 time=125 ms
+From 172.16.30.2: bytes=32 seq=4 ttl=125 time=94 ms
+From 172.16.30.2: bytes=32 seq=5 ttl=125 time=62 ms
+
+--- 172.16.30.2 ping statistics ---
+  5 packet(s) transmitted
+  4 packet(s) received
+  20.00% packet loss
+  round-trip min/avg/max = 0/97/125 ms
+
+//PC4 PING PC1
+PC&gt;ping 192.168.10.2
+
+Ping 192.168.10.2: 32 data bytes, Press Ctrl_C to break
+From 192.168.10.2: bytes=32 seq=1 ttl=125 time=109 ms
+From 192.168.10.2: bytes=32 seq=2 ttl=125 time=94 ms
+From 192.168.10.2: bytes=32 seq=3 ttl=125 time=109 ms
+From 192.168.10.2: bytes=32 seq=4 ttl=125 time=94 ms
+From 192.168.10.2: bytes=32 seq=5 ttl=125 time=94 ms
+
+--- 192.168.10.2 ping statistics ---
+  5 packet(s) transmitted
+  5 packet(s) received
+  0.00% packet loss
+  round-trip min/avg/max = 94/100/109 ms
+</code></pre>
+<h2 id="实验总结">实验总结：</h2>
+<p>在本次实验中主要考核单臂路由、三层交换机VLAN间通信和OSPF路由协议</p>
+<p>实验文件下载 ：<a href="https://xing-fax.github.io/file/Test-1.paper">网络设备配置与安全</a></p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://Xing-Fax.GitHub.io/post/errorinject/" class="post-title gt-a-link">
+                    CTF WEB SQL-报错注入
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新，可以为师矣~</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Website BY <a href="https://github.com/Xing-Fax/" target="_blank">Xing-Fax</a> Powered BY <a
+                href="https://github.com/Xing-Fax/xing-fax.github.io/" target="_blank">GitHub | <a href="https://xing-fax.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

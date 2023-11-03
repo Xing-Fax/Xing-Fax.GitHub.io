@@ -1,0 +1,210 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>eNSP-MSTP实验 | Xing-Fax</title>
+
+<link rel="shortcut icon" href="https://Xing-Fax.GitHub.io/favicon.ico?v=1699016659770">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Xing-Fax.GitHub.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Xing-Fax
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1699016659770" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    eNSP-MSTP实验
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2023-05-07 ·
+                    </time>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/ensp/" class="post-tags">
+                            # eNSP
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h1 id="mstp实验">MSTP实验：</h1>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://Xing-Fax.GitHub.io/post-images/1678929859694.png" alt="img" loading="lazy"></figure>
+<h2 id="实验要求"><strong>实验要求：</strong></h2>
+<ol>
+<li>交换机创建VLAN 10 20 30 40，级联端口配置成Trunk，PC连接的端口加入相应的VLAN</li>
+<li>设置STP的模式MSTP，配置域名smx,VLAN 10,20加入实例1，VLAN30,40加入实例2</li>
+<li>S1配置成实例1的主根，实例2的次根，S2配置成实例2的次根，实例1的主根</li>
+</ol>
+<h2 id="实验步骤">实验步骤：</h2>
+<ol>
+<li>每台交换机创建VLAN 10 20 30 40，并将交换机级联端口设置为Trunk，并允许创建的四个VLAN通过，PC机连接的端口设置为Access，并加入相应VLAN</li>
+</ol>
+<pre><code>...
+VLAN Batch 10 20 30 40
+...
+Port Link-Type Trunk
+Port Trunk Allow-Pass Vlan 10 20 30 40
+...
+Port Link-Type Access
+port default Vlan [10 | 20 | 30 | 40]
+...
+</code></pre>
+<ol start="2">
+<li>激活MSTP域配置，配置域名&quot;smx&quot;</li>
+</ol>
+<pre><code>STP Region-Configuration
+Region-name smx
+</code></pre>
+<ol start="3">
+<li>将VLAN 10 20 加入实例1，VLAN 30 40 加入实例2，并对MSTP配置进行保存</li>
+</ol>
+<pre><code>instance 1 vlan 10 20
+instance 2 vlan 30 40
+Active Region-Configuration
+</code></pre>
+<ol start="4">
+<li>配置MSTP协议</li>
+</ol>
+<pre><code>STP Mode MSTP
+</code></pre>
+<ol start="5">
+<li>配置主次根桥</li>
+</ol>
+<pre><code>S1:
+STP Instance 1 Root Primary
+STP Instance 2 Root Secondary
+
+S2:
+STP Instance 1 Root Secondary
+STP Instance 2 Root Primary
+</code></pre>
+<blockquote>
+<p>至此，配置完毕......</p>
+</blockquote>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://Xing-Fax.GitHub.io/post/STP/" class="post-title gt-a-link">
+                    eNSP-STP实验
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新，可以为师矣~</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Website BY <a href="https://github.com/Xing-Fax/" target="_blank">Xing-Fax</a> Powered BY <a
+                href="https://github.com/Xing-Fax/xing-fax.github.io/" target="_blank">GitHub | <a href="https://xing-fax.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>CTF WEB PHP弱类型 | Xing-Fax</title>
+
+<link rel="shortcut icon" href="https://Xing-Fax.GitHub.io/favicon.ico?v=1699016659770">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Xing-Fax.GitHub.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Xing-Fax
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1699016659770" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    CTF WEB PHP弱类型
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2023-07-15 ·
+                    </time>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/php/" class="post-tags">
+                            # PHP
+                        </a>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/web/" class="post-tags">
+                            # WEB
+                        </a>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/ctf/" class="post-tags">
+                            # CTF
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h1 id="php弱类型">PHP弱类型</h1>
+ <!-- more --> 
+<p>在PHP中，可能会需要比较两个值或者变量是否相等，可以使用&quot;<mark>&quot;和&quot;</mark>=&quot;来完成比较，但是他们之间存在一定的差别</p>
+<h2 id="操作符">“==”操作符</h2>
+<pre><code class="language-php">var_dump(&quot;4&quot; == 4);
+//true
+</code></pre>
+<p>在使用“==”进行比较时，PHP会将字符串转化为同类型再进行比较</p>
+<h2 id="操作符-2">“===”操作符</h2>
+<pre><code class="language-php">var_dump(&quot;4&quot; === 4);	
+//false
+</code></pre>
+<p>在使用“===”进行比较时，PHP会先判断类型是否相等，再进行比较</p>
+<h2 id="例子">例子</h2>
+<pre><code class="language-php">&lt;?php
+    var_dump(&quot;admin&quot; == 0);		//true
+	var_dump(&quot;1admin&quot; == 1);	//true
+	var_dump(&quot;admin1&quot; == 1);	//false
+	var_dump(&quot;admin1&quot; == 0);	//true
+	var_dump(&quot;admin1&quot; == 0);	//true
+	var_dump(&quot;0e123&quot; == &quot;0e456&quot;)//true
+?&gt;
+</code></pre>
+<p>在PHP进行类型转换的时候，会从字符串第一位依次向后判断是否为数字，如果true则保留，false结束判断</p>
+<pre><code>&quot;admin&quot; -&gt; 0
+</code></pre>
+<p>第一位不为数字而是字母，所以判断结束，值为int的初始值0</p>
+<pre><code>&quot;1admin&quot; -&gt; 1
+</code></pre>
+<p>第一位为数字保留，第二位不是数字，结束判断，值为1</p>
+<pre><code>&quot;123a456789&quot; -&gt; 123
+</code></pre>
+<p>在判断到不为数字的位时，结束判断，所以后面的值不在进行判断</p>
+<pre><code>&quot;0e123&quot; -&gt; 0
+</code></pre>
+<p>此字符串属于特殊字符串，为科学计数法的表达方式，所以会被转化为具体数值 0*10^123 = 0</p>
+<pre><code class="language-php">&lt;?php
+    var_dump(1 + &quot;1.5&quot;);		//2.5
+	var_dump(1 + &quot;-1.3e3&quot;);		//-1299
+	var_dump(1 + &quot;src123e5&quot;);	//1
+	var_dump(1 + &quot;2admin&quot;);		//3
+	var_dump(1 + &quot;admin2&quot;);		//1
+?&gt;
+</code></pre>
+<p>当字符串中没有包含‘.’、‘e’、'E'，且值小于int范围，会被作为int来取值，其余情况会作为浮点数来取值</p>
+<h2 id="案例">案例</h2>
+<pre><code class="language-php">&lt;?php
+    if(isset($_POST['message'])){
+        $message = json_decode($POST['message']);
+        $key = &quot;******&quot;;  //保密
+        if($message-&gt;key == $key){
+            echo &quot;flag&quot;;
+        }
+        else{
+            echo &quot;fail&quot;;
+        }
+    }
+	else{
+        echo &quot;~~~&quot;;
+    }
+?&gt;
+</code></pre>
+<p>在上述案例中，已知有POST参数message，通过传入的值和变量key做比较，相等时得到flag</p>
+<p>变量Key中的值我们不知道，但是它的类型为字符串，并且使用‘’==‘做判断符，所以我们猜测一下此字符串中第一位不包含数字，不包含数字的话做类型转换就是0，所以我们POST传入一个整形0得到flag</p>
+<p>POST:</p>
+<pre><code>message={&quot;key&quot;:0}
+</code></pre>
+<p>如果字符在转换后不是0是数字呢？可以采用脚本爆破的方式从1到9999全部试一遍，得到flag</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://Xing-Fax.GitHub.io/post/variable/" class="post-title gt-a-link">
+                    CTF WEB 变量覆盖
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新，可以为师矣~</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Website BY <a href="https://github.com/Xing-Fax/" target="_blank">Xing-Fax</a> Powered BY <a
+                href="https://github.com/Xing-Fax/xing-fax.github.io/" target="_blank">GitHub | <a href="https://xing-fax.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

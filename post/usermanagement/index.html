@@ -1,0 +1,321 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Linux用户和组管理实验 | Xing-Fax</title>
+
+<link rel="shortcut icon" href="https://Xing-Fax.GitHub.io/favicon.ico?v=1699016659770">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Xing-Fax.GitHub.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Xing-Fax
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1699016659770" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Linux用户和组管理实验
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2023-05-08 ·
+                    </time>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/linux/" class="post-tags">
+                            # Linux
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h1 id="linux用户和组管理实验">Linux用户和组管理实验</h1>
+<!-- more -->
+<h3 id="实验环境">实验环境：</h3>
+<p>公司的Linux主机即将提供给技术部作为开发服务器使用，根据部门内项目组的构成情况，首先需要建立相应的组账号、用户账号，并为相关目录设置权限；还需要设置一个共用的数据存储目录，便于同事之间的数据交换。</p>
+<h3 id="需求描述">需求描述：</h3>
+<ol>
+<li>
+<p><strong>建立用户目录</strong><br>
+创建目录/tech/team1和/tech/team2，分别用于存放各项目组中用户账号的宿主文件夹<br>
+例如natasha用户的宿主目录位于/tech/team1</p>
+</li>
+<li>
+<p><strong>添加组账号</strong><br>
+为技术部添加组账号tech，GID设置为2000<br>
+为两个项目组添加组账号team1、team2，GID分别设置为2001、2002</p>
+</li>
+<li>
+<p><strong>添加用户账号</strong></p>
+<ul>
+<li>team1组包括三个用户，分别为natasha，harry、sarah，宿主目录均使用/tech/team1目录中与账号同名的文件夹，其中natash账号设为2023年12月31日后失效</li>
+<li>team2组包括两个用户，分别为kitty和mary，宿主目录均使用/tech/team2目录中与账号同名的文件夹</li>
+</ul>
+</li>
+</ol>
+<p>​       用户的初始密码设置为redhat</p>
+<ol start="4">
+<li>
+<p><strong>创建目录和归属</strong></p>
+<ul>
+<li>将/tech目录的属组设置为tech，去除其他用户的所有权限</li>
+<li>将/tech/team1目录的属组设置为team1，去除其他用户的所有权限</li>
+<li>将/tech/team2目录的属组设置为team2，去除其他用户的所有权限</li>
+</ul>
+</li>
+<li>
+<p><strong>建立公共数据存储目录</strong></p>
+<p>创建/public目录，允许所有技术部组内的用户读取、写入、执行文件，非技术部组内的用户禁止访问此目录。</p>
+</li>
+</ol>
+<p>完成上述实验，并给出截图</p>
+<h2 id="实验过程">实验过程</h2>
+<h3 id="建立用户目录">建立用户目录：</h3>
+<ol>
+<li>分别创建**/tech/team1<strong>与</strong>/tech/team2**目录</li>
+</ol>
+<pre><code class="language-shell">mkdir -p /tech/{team1,team2}
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://Xing-Fax.GitHub.io/post-images/1683448058832.png" alt="img" loading="lazy"></figure>
+<h3 id="添加组账号">添加组账号：</h3>
+<ol>
+<li>技术组账号tech，GID为2000，项目组账号team1、team2，GID为2001、2002</li>
+</ol>
+<pre><code class="language-shell">groupadd -g 2000 tech
+groupadd -g 2001 team1
+groupadd -g 2002 team2
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://Xing-Fax.GitHub.io/post-images/1683448641945.png" alt="img" loading="lazy"></figure>
+<h3 id="添加用户账号">添加用户账号</h3>
+<ol>
+<li>为<strong>team1</strong>组创建账号并添加</li>
+</ol>
+<pre><code class="language-shell">useradd -d /tech/team1/natasha -g team1 -e 2023-12-31 natasha
+useradd -d /tech/team1/harry -g team1 harry
+useradd -d /tech/team1/sarah -g team1 sarah
+</code></pre>
+<figure data-type="image" tabindex="3"><img src="https://Xing-Fax.GitHub.io/post-images/1683449987203.png" alt="img" loading="lazy"></figure>
+<ol start="2">
+<li>创建初始密码：<strong>redhat</strong></li>
+</ol>
+<pre><code>passwd natasha
+passwd harry
+passwd sarah
+</code></pre>
+<figure data-type="image" tabindex="4"><img src="https://Xing-Fax.GitHub.io/post-images/1683460003386.png" alt="img" loading="lazy"></figure>
+<ol start="3">
+<li>为<strong>team2</strong>组创建账号并添加</li>
+</ol>
+<pre><code class="language-shell">useradd -d /tech/team2/kitty -g team2 -G tech kitty
+useradd -d /tech/team2/mary -g team2 -G tech mary
+</code></pre>
+<figure data-type="image" tabindex="5"><img src="https://Xing-Fax.GitHub.io/post-images/1683450081442.png" alt="img" loading="lazy"></figure>
+<ol start="4">
+<li>创建初始密码：<strong>redhat</strong></li>
+</ol>
+<pre><code class="language-shell">passwd kitty
+passwd mary
+</code></pre>
+<figure data-type="image" tabindex="6"><img src="https://Xing-Fax.GitHub.io/post-images/1683450180875.png" alt="img" loading="lazy"></figure>
+<h3 id="创建目录和归属">创建目录和归属：</h3>
+<ol>
+<li>将/tech目录的属组设置为tech，去除其他用户的所有权限</li>
+</ol>
+<pre><code class="language-shell">chown :tech /tech
+chmod 750 /tech
+</code></pre>
+<figure data-type="image" tabindex="7"><img src="https://Xing-Fax.GitHub.io/post-images/1683450553505.png" alt="img" loading="lazy"></figure>
+<ol start="2">
+<li>将/tech/team1目录的属组设置为team1，去除其他用户的所有权限</li>
+</ol>
+<pre><code class="language-shell">chown :team1 /tech/team1
+chmod 750 /tech/team1
+</code></pre>
+<figure data-type="image" tabindex="8"><img src="https://Xing-Fax.GitHub.io/post-images/1683450666873.png" alt="img" loading="lazy"></figure>
+<ol start="3">
+<li>将/tech/team2目录的属组设置为team2，去除其他用户的所有权限</li>
+</ol>
+<pre><code class="language-shell">chown :team2 /tech/team2
+chmod 750 /tech/team2
+</code></pre>
+<figure data-type="image" tabindex="9"><img src="https://Xing-Fax.GitHub.io/post-images/1683450759032.png" alt="img" loading="lazy"></figure>
+<h3 id="建立公共目录">建立公共目录：</h3>
+<ol>
+<li>创建目录并设置要求权限</li>
+</ol>
+<pre><code class="language-shell">mkdir /public
+chown :tech /pulic
+chmod 770 /public
+</code></pre>
+<figure data-type="image" tabindex="10"><img src="https://Xing-Fax.GitHub.io/post-images/1683451080496.png" alt="img" loading="lazy"></figure>
+<h2 id="验证上述配置">验证上述配置</h2>
+<p>因为tech技术组内并没有用户，所以先向tech组中添加两名用户分别为test1、test2</p>
+<figure data-type="image" tabindex="11"><img src="https://Xing-Fax.GitHub.io/post-images/1683451671279.png" alt="img" loading="lazy"></figure>
+<h3 id="验证目录归属">验证目录归属：</h3>
+<figure data-type="image" tabindex="12"><img src="https://Xing-Fax.GitHub.io/post-images/1683452286074.png" alt="img" loading="lazy"></figure>
+<blockquote>
+<p>tech组内用户可以访问/tech目录，但是不能访问/tech/team1和/tech/team2目录</p>
+</blockquote>
+<h3 id="验证公共存储目录">验证公共存储目录：</h3>
+<figure data-type="image" tabindex="13"><img src="https://Xing-Fax.GitHub.io/post-images/1683452723158.png" alt="img" loading="lazy"></figure>
+<blockquote>
+<p>tech组内用户可以创建、写入和执行文件</p>
+</blockquote>
+<h3 id="验证其他用户是否可以访问公共目录">验证其他用户是否可以访问公共目录：</h3>
+<figure data-type="image" tabindex="14"><img src="https://Xing-Fax.GitHub.io/post-images/1683453062012.png" alt="img" loading="lazy"></figure>
+<blockquote>
+<p>team1与team2组内用户均无法访问/public目录</p>
+</blockquote>
+<h2 id="存在问题解决方法">存在问题&amp;解决方法</h2>
+<h3 id="宿主目录权限问题">宿主目录权限问题：</h3>
+<ol>
+<li>因为/tech目录的所属组为tech，并为其他用户去除了所有权限，因此team1组和team2组内用户无法访问到自己的宿主目录</li>
+</ol>
+<figure data-type="image" tabindex="15"><img src="https://Xing-Fax.GitHub.io/post-images/1683453363867.png" alt="img" loading="lazy"></figure>
+<h4 id="解决方法">解决方法：</h4>
+<ol>
+<li>将/tech目录权限设置为751，即其他用户拥有执行权限</li>
+</ol>
+<figure data-type="image" tabindex="16"><img src="https://Xing-Fax.GitHub.io/post-images/1683453681212.png" alt="img" loading="lazy"></figure>
+<blockquote>
+<p>team1和team2组内用户可以访问自己的宿主目录</p>
+</blockquote>
+<h3 id="文删除权限问题">文删除权限问题：</h3>
+<ol>
+<li>因为/public目录被设置为test组内用户拥有所有权限，所以组内其他用户可以删除或者修改组内其他用户的文件</li>
+</ol>
+<figure data-type="image" tabindex="17"><img src="https://Xing-Fax.GitHub.io/post-images/1683454560677.png" alt="img" loading="lazy"></figure>
+<h4 id="解决方法-2">解决方法：</h4>
+<ol>
+<li>将/public文件夹权限设置为1770</li>
+</ol>
+<pre><code class="language-shell">chmod 1770 /public
+</code></pre>
+<figure data-type="image" tabindex="18"><img src="https://Xing-Fax.GitHub.io/post-images/1683454522779.png" alt="img" loading="lazy"></figure>
+<blockquote>
+<p>这样组内用户只能对自己创建的文件进修改操作，而没有权限修改组内其他用户创建的文件</p>
+</blockquote>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://Xing-Fax.GitHub.io/post/MSTP/" class="post-title gt-a-link">
+                    eNSP-MSTP实验
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新，可以为师矣~</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Website BY <a href="https://github.com/Xing-Fax/" target="_blank">Xing-Fax</a> Powered BY <a
+                href="https://github.com/Xing-Fax/xing-fax.github.io/" target="_blank">GitHub | <a href="https://xing-fax.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

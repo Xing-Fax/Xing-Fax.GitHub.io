@@ -1,0 +1,221 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>eNSP-STP实验 | Xing-Fax</title>
+
+<link rel="shortcut icon" href="https://Xing-Fax.GitHub.io/favicon.ico?v=1699016659770">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Xing-Fax.GitHub.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Xing-Fax
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1699016659770" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    eNSP-STP实验
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2023-05-07 ·
+                    </time>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/ensp/" class="post-tags">
+                            # eNSP
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <!-- more -->
+<h1 id="生成树协议">生成树协议：</h1>
+<p>通过对每台交换机执行<strong>STP Mode STP</strong>命令开启生成树协议</p>
+<h2 id="确定根桥">确定根桥</h2>
+<p>通过执行<strong>DisPlay STP</strong>查看各交换机的BID</p>
+<p><strong>LSW1：</strong></p>
+<pre><code>-------[CIST Global Info][Mode STP]-------
+CIST Bridge         :0    .4c1f-cc69-47eb
+......
+</code></pre>
+<p><strong>LSW2：</strong></p>
+<pre><code>-------[CIST Global Info][Mode STP]-------
+CIST Bridge         :4096 .4c1f-cc54-4b04
+......
+</code></pre>
+<p><strong>LSW3：</strong></p>
+<pre><code>-------[CIST Global Info][Mode STP]-------
+CIST Bridge         :32768.4c1f-cca4-6f1b
+......
+</code></pre>
+<p><strong>LSW4：</strong></p>
+<pre><code>-------[CIST Global Info][Mode STP]-------
+CIST Bridge         :32768.4c1f-cc89-1e2a
+......
+</code></pre>
+<blockquote>
+<p>通过查看BID，LSW1的桥优先级最小，LSW1成为根桥</p>
+</blockquote>
+<h2 id="确定根端口">确定根端口</h2>
+<p>通过比较非根桥与根桥路径开销，LSW2的E0/0/1和LSW3的E0/0/2与根桥之间开销最小，所以为根端口</p>
+<p>判断LSW4，由于开销相同，判断上级LSW2和LSW3的BID，LSW2比LSW3小，所以选择LSW2</p>
+<p>由于有两条线路，开销相同，通过判断上级端口PID，LSW2的E0/0/2比LSW2的E0/0/4要小</p>
+<p>所以LSW4的E0/0/4为根端口，至此根端口判断完毕</p>
+<h2 id="确定指定端口">确定指定端口</h2>
+<p>由于根桥下的所有端口都为指定端口，所以LSW1的E0/0/1和E0/0/2为根指定端口</p>
+<p>通过判断开销</p>
+<p>LSW3的E0/0/1与根开销最小，为指定端口</p>
+<p>LSW2的E0/0/2和E0/0/4与根桥开销最小，为指定端口</p>
+<h2 id="确定阻塞端口">确定阻塞端口</h2>
+<p>在确定根端口和指定端口后，拓扑结构中剩下的端口为阻塞端口，所以LSW4的E0/0/2和E0/0/1为阻塞端口</p>
+<figure data-type="image" tabindex="1"><img src="https://Xing-Fax.GitHub.io/post-images/1678331188355.png" alt="img" loading="lazy"></figure>
+<h2 id="验证结果">验证结果</h2>
+<p>通过执行<strong>DisPlay STP Brief</strong>命令查看交换机端口状态</p>
+<p><strong>LSW1：</strong></p>
+<pre><code> MSTID  Port                        Role  STP State     Protection
+   0    Ethernet0/0/1               DESI  FORWARDING      NONE
+   0    Ethernet0/0/2               DESI  FORWARDING      NONE
+</code></pre>
+<p><strong>LSW2：</strong></p>
+<pre><code> MSTID  Port                        Role  STP State     Protection
+   0    Ethernet0/0/1               ROOT  FORWARDING      NONE
+   0    Ethernet0/0/2               DESI  FORWARDING      NONE
+   0    Ethernet0/0/4               DESI  FORWARDING      NONE
+</code></pre>
+<p><strong>LSW3：</strong></p>
+<pre><code> MSTID  Port                        Role  STP State     Protection
+   0    Ethernet0/0/1               DESI  FORWARDING      NONE
+   0    Ethernet0/0/2               ROOT  FORWARDING      NONE
+</code></pre>
+<p><strong>LSW4：</strong></p>
+<pre><code> MSTID  Port                        Role  STP State     Protection
+   0    Ethernet0/0/1               ALTE  DISCARDING      NONE
+   0    Ethernet0/0/2               ALTE  DISCARDING      NONE
+   0    Ethernet0/0/4               ROOT  FORWARDING      NONE
+</code></pre>
+<p>经过验证，与猜想结果相同</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://Xing-Fax.GitHub.io/post/VLANbetween/" class="post-title gt-a-link">
+                    eNSP-三层交换VLAN间路由
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新，可以为师矣~</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Website BY <a href="https://github.com/Xing-Fax/" target="_blank">Xing-Fax</a> Powered BY <a
+                href="https://github.com/Xing-Fax/xing-fax.github.io/" target="_blank">GitHub | <a href="https://xing-fax.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

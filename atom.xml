@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://Xing-Fax.GitHub.io</id>
+    <title>Xing-Fax</title>
+    <updated>2023-11-03T13:04:23.979Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://Xing-Fax.GitHub.io"/>
+    <link rel="self" href="https://Xing-Fax.GitHub.io/atom.xml"/>
+    <subtitle>温故而知新，可以为师矣~</subtitle>
+    <logo>https://Xing-Fax.GitHub.io/images/avatar.png</logo>
+    <icon>https://Xing-Fax.GitHub.io/favicon.ico</icon>
+    <rights>All rights reserved 2023, Xing-Fax</rights>
+    <entry>
+        <title type="html"><![CDATA[选拔考试例题-eNSP]]></title>
+        <id>https://Xing-Fax.GitHub.io/post/selection-ensp/</id>
+        <link href="https://Xing-Fax.GitHub.io/post/selection-ensp/">
+        </link>
+        <updated>2023-09-15T16:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<h1 id="选拔考试例题-ensp">选拔考试例题-eNSP</h1>
+]]></summary>
+        <content type="html"><![CDATA[<h1 id="选拔考试例题-ensp">选拔考试例题-eNSP</h1>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[CTF WEB SQL-报错注入]]></title>
+        <id>https://Xing-Fax.GitHub.io/post/errorinject/</id>
+        <link href="https://Xing-Fax.GitHub.io/post/errorinject/">
+        </link>
+        <updated>2023-07-17T05:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<h1 id="sql-报错注入">SQL-报错注入</h1>
+]]></summary>
+        <content type="html"><![CDATA[<h1 id="sql-报错注入">SQL-报错注入</h1>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[CTF WEB SQL注入-联合注入]]></title>
+        <id>https://Xing-Fax.GitHub.io/post/jointinjec/</id>
+        <link href="https://Xing-Fax.GitHub.io/post/jointinjec/">
+        </link>
+        <updated>2023-07-17T05:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<h1 id="sql注入-联合注入">SQL注入-联合注入</h1>
+]]></summary>
+        <content type="html"><![CDATA[<h1 id="sql注入-联合注入">SQL注入-联合注入</h1>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[CTF WEB 命令执行漏洞]]></title>
+        <id>https://Xing-Fax.GitHub.io/post/command/</id>
+        <link href="https://Xing-Fax.GitHub.io/post/command/">
+        </link>
+        <updated>2023-07-16T05:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<h1 id="命令执行漏洞">命令执行漏洞</h1>
+]]></summary>
+        <content type="html"><![CDATA[<h1 id="命令执行漏洞">命令执行漏洞</h1>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[CTF WEB 绕过过滤]]></title>
+        <id>https://Xing-Fax.GitHub.io/post/filter/</id>
+        <link href="https://Xing-Fax.GitHub.io/post/filter/">
+        </link>
+        <updated>2023-07-16T05:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<h1 id="绕过过滤">绕过过滤</h1>
+]]></summary>
+        <content type="html"><![CDATA[<h1 id="绕过过滤">绕过过滤</h1>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[CTF WEB 苛刻条件RCE]]></title>
+        <id>https://Xing-Fax.GitHub.io/post/harsh/</id>
+        <link href="https://Xing-Fax.GitHub.io/post/harsh/">
+        </link>
+        <updated>2023-07-16T05:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<h1 id="苛刻条件rce">苛刻条件RCE</h1>
+]]></summary>
+        <content type="html"><![CDATA[<h1 id="苛刻条件rce">苛刻条件RCE</h1>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[CTF WEB MD5绕过]]></title>
+        <id>https://Xing-Fax.GitHub.io/post/md5/</id>
+        <link href="https://Xing-Fax.GitHub.io/post/md5/">
+        </link>
+        <updated>2023-07-15T05:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<h1 id="md5绕过">MD5绕过</h1>
+]]></summary>
+        <content type="html"><![CDATA[<h1 id="md5绕过">MD5绕过</h1>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[CTF WEB PHP弱类型]]></title>
+        <id>https://Xing-Fax.GitHub.io/post/type/</id>
+        <link href="https://Xing-Fax.GitHub.io/post/type/">
+        </link>
+        <updated>2023-07-15T05:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<h1 id="php弱类型">PHP弱类型</h1>
+]]></summary>
+        <content type="html"><![CDATA[<h1 id="php弱类型">PHP弱类型</h1>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[CTF WEB 变量覆盖]]></title>
+        <id>https://Xing-Fax.GitHub.io/post/variable/</id>
+        <link href="https://Xing-Fax.GitHub.io/post/variable/">
+        </link>
+        <updated>2023-07-15T05:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<h1 id="变量覆盖">变量覆盖</h1>
+]]></summary>
+        <content type="html"><![CDATA[<h1 id="变量覆盖">变量覆盖</h1>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Linux磁盘管理实验]]></title>
+        <id>https://Xing-Fax.GitHub.io/post/scsi/</id>
+        <link href="https://Xing-Fax.GitHub.io/post/scsi/">
+        </link>
+        <updated>2023-05-30T16:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<h1 id="磁盘管理实验">磁盘管理实验</h1>
+]]></summary>
+        <content type="html"><![CDATA[<h1 id="磁盘管理实验">磁盘管理实验</h1>
+]]></content>
+    </entry>
+</feed>

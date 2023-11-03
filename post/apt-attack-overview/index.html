@@ -1,0 +1,283 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>APT 攻击综述及研究 | Xing-Fax</title>
+
+<link rel="shortcut icon" href="https://Xing-Fax.GitHub.io/favicon.ico?v=1699016659770">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Xing-Fax.GitHub.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Xing-Fax
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1699016659770" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    APT 攻击综述及研究
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-11-04 ·
+                    </time>
+                    
+                        <a href="https://Xing-Fax.GitHub.io/tag/attacks/" class="post-tags">
+                            # Attacks
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h1 id="apt攻击综述及研究">APT攻击综述及研究</h1>
+<h4 id="1什么是apt攻击">1.什么是APT攻击？</h4>
+<!-- more --> 
+<p>APT攻击（Advanced Persistent Threat，高级持续性威胁） 是利用先进的攻击手段对特定目标进行长期持续性网络攻击的攻击形式。APT攻击也称为定向威胁攻击，指某组织对特定对象展开的持续有效的攻击活动。这种攻击活动具有极强的隐蔽性和针对性，通常会运用受感染的各种介质、供应链和社会工程学等多种手段实施先进的、持久的且有效的威胁和攻击。</p>
+<h4 id="2apt攻击的特点">2.APT攻击的特点</h4>
+<ul>
+<li>
+<p><strong>隐蔽性</strong></p>
+<p>0-Day漏洞、无文件攻击、加密流量 ， 能绕过目标所在网络的防御系统</p>
+</li>
+<li>
+<p><strong>持续性</strong></p>
+<p>潜伏时间长、攻击时间跨度大，通常在目标网络中潜伏几个月甚至几年</p>
+</li>
+<li>
+<p><strong>针对性</strong></p>
+<p>所有的攻击方法都只针对特定目标和特定系统 ， 目标明确</p>
+</li>
+<li>
+<p><strong>模块化</strong></p>
+<p>各类攻击工具能够紧密的和其它工具相互配合，灵活性极强</p>
+</li>
+</ul>
+<h4 id="3apt攻击与传统攻击区别">3.APT攻击与传统攻击区别</h4>
+<ul>
+<li>
+<p><strong>组织性</strong></p>
+<p>APT攻击通常是有一个或者多个组织发起的攻击，具有强烈的目标性，通常有大量的资源支持和帮助，而传统攻击一般是由个人或者群体发起</p>
+</li>
+<li>
+<p><strong>目标针对性</strong></p>
+<p>APT攻击组织不会盲目攻击，而是针对性的选择一个目标进行攻击，此类目标往往具有军事，政治类的，具有较高价值的目标，而传统通常采用无差别攻击手段</p>
+</li>
+<li>
+<p><strong>攻击战术</strong></p>
+<p>APT攻击的手段多别且复杂，同时掌握有大量的0-Day漏洞，传统检测技术很难检测到被攻击，而传统攻击一般采用流量泛滥或者已知公开漏洞攻击</p>
+</li>
+<li>
+<p><strong>高隐蔽性</strong></p>
+<p>APT攻击采用加密隧道进行通信，基于流量检测的防御很难发挥作用，而传统攻击时使用普通连接或未加密隧道进行攻击</p>
+</li>
+<li>
+<p><strong>持续时间长</strong></p>
+<p>APT攻击往往会持续数年时间，而传统攻击往往时一次性的，通常也不会对目标主机留下后门</p>
+</li>
+</ul>
+<h4 id="4apt攻击基本流程">4.APT攻击基本流程</h4>
+<ul>
+<li>
+<p>情报收集</p>
+<p>攻击方使用钓鱼、扫描、嗅探、监听、社会工程学等等手段去寻找目标，并对目标进行画像生成，如子域名，服务器版本，SQL数据库版本、已知漏洞而当等</p>
+</li>
+<li>
+<p>资源开发</p>
+<p>通过购买或者入侵大量机器，租借可用的基本网络设施，服务器等资源为接下来的攻击做好准备</p>
+</li>
+<li>
+<p>初始访问</p>
+<p>利用0-Day漏洞、N-Day漏洞，编写对目标主机定制化的工具</p>
+</li>
+<li>
+<p>C2通信</p>
+<p>向肉鸡进行样本投递，使得C2服务器和目标主机建立通信加密隧道</p>
+</li>
+<li>
+<p>横向移动</p>
+<p>攻击者通过C2服务器对内网中的主机进行横向渗透，最终拿下内网主机的控制权，同时给靶机留下后门程序，便于持续攻击。</p>
+</li>
+<li>
+<p>资产发现</p>
+<p>使用扫描工具扫描内网主机的指纹信息，比如ip，开放端口，未修复的已知漏洞</p>
+</li>
+<li>
+<p>数据泄露</p>
+<p>攻击者会将靶机敏感信息压缩、加密，然后通过加密隧道窃取</p>
+</li>
+</ul>
+<h4 id="5apt攻击检测困难">5.APT攻击检测困难</h4>
+<p>像要发现和检测一起APT攻击极为困难，同时传统的APT攻击检测存在一定的缺陷</p>
+<ul>
+<li>APT攻击时间跨度长，缺乏方法或工具有效将信息进行关联，还原攻击链</li>
+<li>实时检测困难，较难高效地从百万条日志中筛选数据，并检测出最可能的攻击行为</li>
+<li>较难让分析人员通过数据有效地进行推理，从而检测未知攻击</li>
+<li>缺乏对真实场景的APT攻击进行检测，并且IDS和SIEM会产生大量的信息，传统方法识别真实的攻击更加困难</li>
+<li>无法有效解决投毒攻击，即由于APT攻击时间跨度较长，深度学习会将恶意特征训练为正常特征</li>
+</ul>
+<h4 id="6apt攻击的溯源">6.APT攻击的溯源</h4>
+<ul>
+<li><strong>对APT组织画像</strong></li>
+</ul>
+<p>通过对攻击方的攻击方式，以及流程，攻击习惯，技术特点等信息生成一副画像，以便后续的溯源过程</p>
+<ul>
+<li><strong>通过异常行为进行攻击溯源</strong></li>
+</ul>
+<p>其原理是通过对网络中的正常行为模式建模。核心技术包括元数据提取、正常行为建模和异常检测算法。该方案同样能够检测未知攻击</p>
+<ul>
+<li>
+<p><strong>样本溯源</strong></p>
+<p>样本的静态特征有语言、pdb、字符串等，pdb文件主要存储了VS调试程序时所需要的基本信息，主要包括源文件名、变量名、函数名、FPO(帧指针)、对应的行号等等。可以通过样本的聚类和同源分析，ip、domain、url、md5等的关联实现溯源</p>
+</li>
+</ul>
+<h4 id="4如何防范apt攻击">4.如何防范APT攻击</h4>
+<ul>
+<li>
+<p><strong>沙箱技术</strong></p>
+<p>虚拟化系统是防御APT攻击的主要手段之一，通过虚拟化技术形成一个模拟化的系统，将本地系统的进程，内存，磁盘，以及一些系统关机设置与模拟环境相互隔离，以上帝视角的方式来观察恶意代码的运行方式，同时可以通过重定向技术隔离病毒对本地程序的修改</p>
+</li>
+<li>
+<p><strong>信誉技术</strong></p>
+<p>安全信誉是对互联网资源和服务相关实体安全可信性的评估和看法， 通过建立信誉库，包括WEB URL信誉库、文件MD5码库、僵尸网络地址库、威胁情报库等，可以为新型病毒、木马等APT攻击的检测提供强有力的技术辅助支撑，将进一步提高安全新品的安全防护能力</p>
+</li>
+<li>
+<p><strong>主机漏洞防护技术</strong></p>
+<p>针对横向移动与内部资料进行挖掘和探测的防御，可采用主机漏洞防护技术，能侦测任何针对主机漏洞的攻击并加以拦截，进而保护未修补的主机。这类解决方案可实现档案 / 系统一致性监控，保护未套用修补程序的主机，防止已知和0-Day漏洞攻击</p>
+</li>
+<li>
+<p><strong>异常流量分析技术</strong></p>
+<p>采用旁路接入方式提取流量信息，可以针对帧数、帧长、协议、端口、CPU/RAM消耗、宽带占用等进行监测，并基于时间、拓扑、节点等多种统计分析手段，建立流量行为轮廓和学习模型来识别流量异常情况，进而判断并识别0Day漏洞攻击等。</p>
+</li>
+<li>
+<p><strong>数据防泄露技术</strong></p>
+<p>针对资料外传的风险，一般可采用加密和资料外泄防护 (DLP)技术，将关键、敏感、机密的数据加密，DLP 可提供一层额外的防护来防止数据外泄，这类工具通常很复杂，而且有些部署条件，例如：数据要分类，要定义政策和规则等</p>
+</li>
+<li>
+<p><strong>大数据分析技术</strong></p>
+<p>网络系统本身产生的大量日志数据，SOC安管平台产生的大量日志信息，均可以利用大数据分析技术进行大数据再分析，运用数据统计、数据挖掘、关联分析、态势分析等从记录的历史数据中发现APT攻击的痕迹，以弥补传统安全防御技术的不足</p>
+</li>
+</ul>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://Xing-Fax.GitHub.io/post/java-palindromes/" class="post-title gt-a-link">
+                    JAVA 求回文数
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新，可以为师矣~</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Website BY <a href="https://github.com/Xing-Fax/" target="_blank">Xing-Fax</a> Powered BY <a
+                href="https://github.com/Xing-Fax/xing-fax.github.io/" target="_blank">GitHub | <a href="https://xing-fax.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>
